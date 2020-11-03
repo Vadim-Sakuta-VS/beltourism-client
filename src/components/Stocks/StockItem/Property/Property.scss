@@ -1,0 +1,27 @@
+.property {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+
+  &:not(:first-child) {
+    margin-top: 3px;
+  }
+
+  i {
+    color: #1dd2af;
+  }
+
+  &__content {
+    display: flex;
+    margin-left: 10px;
+
+    .content-value {
+      margin-left: 5px;
+
+      i {
+        margin-left: 3px;
+        color: #2c3e50;
+      }
+    }
+  }
+}

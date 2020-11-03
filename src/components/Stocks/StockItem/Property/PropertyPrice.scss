@@ -1,0 +1,15 @@
+.property {
+  &__content {
+    .content-value {
+      .value {
+        .price-old {
+          text-decoration: line-through #ff0000;
+        }
+
+        .price-new {
+          margin-left: 7px;
+        }
+      }
+    }
+  }
+}

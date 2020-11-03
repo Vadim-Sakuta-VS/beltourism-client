@@ -1,0 +1,41 @@
+.home {
+  .popular-stocks {
+    padding: 60px 0;
+
+    .popular-stocks__content {
+      .popular-stocks__title {
+        position: relative;
+        text-align: center;
+        font-size: 2.3rem;
+        text-transform: uppercase;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 150%;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100px;
+          height: 5px;
+          background-color: #2c3e50;
+        }
+      }
+
+      .wrap-btn {
+        margin-top: 40px;
+        text-align: center;
+
+        .btn__load-more-stocks {
+          padding: 20px 40px;
+          color: #fff;
+          border: 1px solid #2c3e50;
+          background-color: #2c3e50;
+
+          &:hover {
+            box-shadow: 0 0 10px 1px #2c3e50;
+          }
+        }
+      }
+    }
+  }
+}

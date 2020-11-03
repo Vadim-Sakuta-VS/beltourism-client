@@ -1,0 +1,30 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  padding: 0 10%;
+}
+
+.pages {
+  position: relative;
+  z-index: 10;
+}
+
+.btn {
+  border-radius: 5px;
+  background-color: transparent;
+  transition: .2s;
+}
+
+@media (max-width: 1050px) {
+  .container {
+    padding: 0 1%;
+  }
+}
+
+@media (min-width: 1921px) {
+  html {
+    font-size: 30px;
+  }
+}

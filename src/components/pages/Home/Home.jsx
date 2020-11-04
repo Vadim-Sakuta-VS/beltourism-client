@@ -75,6 +75,37 @@ export const Home = ()=>{
                   </div>
               </div>
           </section>
+          <section className="service-icons">
+              <div className="container">
+                  <div className="service-icons__content">
+                      <div className="wrap-icon">
+                          <div className="icon">
+                              <i className="fas fa-house-user"></i>
+                          </div>
+                      </div>
+                      <div className="wrap-icon">
+                          <div className="icon">
+                              <i className="fas fa-car-alt"></i>
+                          </div>
+                      </div>
+                      <div className="wrap-icon">
+                          <div className="icon">
+                              <i className="fas fa-route"></i>
+                          </div>
+                      </div>
+                      <div className="wrap-icon">
+                          <div className="icon">
+                              <i className="fas fa-icons"></i>
+                          </div>
+                      </div>
+                      <div className="wrap-icon">
+                          <div className="icon">
+                              <i className="fas fa-utensils"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
       </section>
     );
 }

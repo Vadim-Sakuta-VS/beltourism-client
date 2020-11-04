@@ -1,0 +1,31 @@
+.slide {
+  outline: none;
+
+  &-bg {
+    width: 100%;
+    height: 100%;
+    padding-top: 10%;
+  }
+
+  &-text {
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    text-align: center;
+    opacity: 0;
+
+    &.transform {
+      animation: move 1s ease-in-out forwards;
+    }
+
+    @keyframes move {
+      from {
+        transform: translateY(50%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+}

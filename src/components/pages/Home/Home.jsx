@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.scss";
 import {Stocks} from "../../Stocks/Stocks";
+import {AboutService} from "./AboutService/AboutService";
 
 export const Home = ()=>{
     const testDataStocks = [
@@ -62,6 +63,7 @@ export const Home = ()=>{
 
     return (
       <section className="home">
+          <AboutService/>
           <section className="popular-stocks">
               <div className="container">
                   <div className="popular-stocks__content">

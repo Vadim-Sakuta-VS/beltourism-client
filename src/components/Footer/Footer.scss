@@ -9,7 +9,11 @@
       justify-content: center;
 
       .social-link {
-        flex-basis: 4%;
+        flex-basis: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 1.6rem;
         border: 2px solid #fff;
         border-radius: 50%;
@@ -23,13 +27,6 @@
         &:hover {
           color: #1dd2af;
           box-shadow: 0 0 10px 1px #1dd2af;
-        }
-
-        .link-content {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 20%;
         }
       }
     }

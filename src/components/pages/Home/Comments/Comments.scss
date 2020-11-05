@@ -24,6 +24,10 @@
       margin-top: 7%;
 
       &-slider {
+        .slick-slide {
+          outline: none;
+        }
+
         .arrow-prev, .arrow-next {
           position: absolute;
           top: 50%;

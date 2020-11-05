@@ -2,6 +2,7 @@ import React from "react";
 import "./Home.scss";
 import {Stocks} from "../../Stocks/Stocks";
 import {AboutService} from "./AboutService/AboutService";
+import {Comments} from "./Comments/Comments";
 
 export const Home = ()=>{
     const testDataStocks = [
@@ -60,6 +61,73 @@ export const Home = ()=>{
             price: 12
         },
     ];
+    const testDataComments = [
+        {
+            id: 1,
+            service_name: "Аренда Volkswagen Tiguan (Слайд 1)",
+            company_name: "Пилот-авто",
+            location: "Минск",
+            mark: 9,
+            text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+                   architecto consequatur cupiditate deleniti dicta ducimus esse excepturi harum nam
+                   necessitatibus odit, officia perferendis porro quaerat quis! Accusantium
+                   doloribus facere natus.`,
+            user_ns: "Алексей Костюков",
+            date: "04.11.2020"
+        },
+        {
+            id: 2,
+            service_name: "Аренда Volkswagen Tiguan (Слайд 2)",
+            company_name: "Пилот-авто",
+            location: "Минск",
+            mark: 9,
+            text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+                   architecto consequatur cupiditate deleniti dicta ducimus esse excepturi harum nam
+                   necessitatibus odit, officia perferendis porro quaerat quis! Accusantium
+                   doloribus facere natus.`,
+            user_ns: "Алексей Костюков",
+            date: "04.11.2020"
+        },
+        {
+            id: 3,
+            service_name: "Аренда Volkswagen Tiguan (Слайд 3)",
+            company_name: "Пилот-авто",
+            location: "Минск",
+            mark: 10,
+            text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+                   architecto consequatur cupiditate deleniti dicta ducimus esse excepturi harum nam
+                   necessitatibus odit, officia perferendis porro quaerat quis! Accusantium
+                   doloribus facere natus.`,
+            user_ns: "Алексей Костюков",
+            date: "04.11.2020"
+        },
+        {
+            id: 4,
+            service_name: "Аренда Volkswagen Tiguan (Слайд 4)",
+            company_name: "Пилот-авто",
+            location: "Минск",
+            mark: 8,
+            text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+                   architecto consequatur cupiditate deleniti dicta ducimus esse excepturi harum nam
+                   necessitatibus odit, officia perferendis porro quaerat quis! Accusantium
+                   doloribus facere natus.`,
+            user_ns: "Алексей Костюков",
+            date: "04.11.2020"
+        },
+        {
+            id: 5,
+            service_name: "Аренда Volkswagen Tiguan (Слайд 5)",
+            company_name: "Пилот-авто",
+            location: "Минск",
+            mark: 9,
+            text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+                   architecto consequatur cupiditate deleniti dicta ducimus esse excepturi harum nam
+                   necessitatibus odit, officia perferendis porro quaerat quis! Accusantium
+                   doloribus facere natus.`,
+            user_ns: "Алексей Костюков",
+            date: "04.11.2020"
+        },
+    ];
 
     return (
       <section className="home">
@@ -106,6 +174,7 @@ export const Home = ()=>{
                   </div>
               </div>
           </section>
+          <Comments comments={testDataComments}/>
       </section>
     );
 }

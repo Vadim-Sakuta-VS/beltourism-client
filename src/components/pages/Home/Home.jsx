@@ -4,7 +4,7 @@ import {Stocks} from "../../Stocks/Stocks";
 import {AboutService} from "./AboutService/AboutService";
 import {Comments} from "./Comments/Comments";
 
-export const Home = ()=>{
+export const Home = ({setPopupInfo, ...props})=>{
     const testDataStocks = [
         {
             id: 1,
@@ -131,7 +131,7 @@ export const Home = ()=>{
 
     return (
       <section className="home">
-          <AboutService/>
+          <AboutService setPopupInfo={setPopupInfo}/>
           <section className="popular-stocks">
               <div className="container">
                   <div className="popular-stocks__content">

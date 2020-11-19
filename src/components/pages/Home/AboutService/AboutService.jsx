@@ -2,8 +2,9 @@ import React from "react";
 import "./AboutService.scss";
 import Slider from "react-slick";
 import {Slide} from "./Slide/Slide";
+import {POPUPS_FORMS} from "../../../../constants/constants";
 
-export const AboutService = () => {
+export const AboutService = ({setPopupInfo}) => {
 
     const animateText = () => {
         let isCanAnimated = true;
@@ -112,8 +113,12 @@ export const AboutService = () => {
                     Более <span className="count">(Х)</span> зарегистрированных поьзователей.
                 </p>
                 <p className="about-service__conclusion">
-                    <span className="conclusion-first">Регистрируйся</span> прямо сейчас, чтобы полнеценно
-                    пользоваться сервисом.
+                    <span
+                        className="conclusion-first"
+                        onClick={()=>setPopupInfo({activeForm: POPUPS_FORMS.REGISTRATION, fromForm: ""})}
+                    >
+                        Регистрируйся
+                    </span> прямо сейчас, чтобы полнеценно пользоваться сервисом.
                 </p>
             </div>
         </section>

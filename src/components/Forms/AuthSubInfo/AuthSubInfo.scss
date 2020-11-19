@@ -1,0 +1,16 @@
+.form__auth-sub-info {
+  margin-top: 5%;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #808080;
+
+  span {
+    color: #1dd2af;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+      text-shadow: 0 0 10px #1dd2af;
+    }
+  }
+}

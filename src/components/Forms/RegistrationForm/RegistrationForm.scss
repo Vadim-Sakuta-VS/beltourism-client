@@ -1,0 +1,13 @@
+.form-auth{
+  .password-field-wrap{
+    position: relative;
+    i.pass-info{
+      position: absolute;
+      top: 50%;
+      right: -25px;
+      font-size: 1rem;
+      color: #808080;
+      transform: translateY(-50%);
+    }
+  }
+}

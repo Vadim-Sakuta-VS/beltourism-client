@@ -9,15 +9,15 @@ export const Navigation = () => {
         subtypes: [
             {
                 subtype: "Отели",
-                to: "#"
+                to: "/services?type=housing&subtype=hotel"
             },
             {
                 subtype: "Квартиры",
-                to: "#"
+                to: "/services?type=housing&subtype=flat"
             },
             {
                 subtype: "Загородные дома",
-                to: "#"
+                to: "/services?type=housing&subtype=country-houses"
             },
         ]
     };
@@ -27,11 +27,11 @@ export const Navigation = () => {
         subtypes: [
             {
                 subtype: "Авто",
-                to: "#"
+                to: "/services?type=transport&subtype=car"
             },
             {
                 subtype: "Мото",
-                to: "#"
+                to: "/services?type=transport&subtype=moto"
             },
         ]
     };
@@ -41,19 +41,19 @@ export const Navigation = () => {
         subtypes: [
             {
                 subtype: "Автобусные экскурсионные туры по городам",
-                to: "#"
+                to: "/services?type=tourism&subtype=bus-excursions"
             },
             {
                 subtype: "Индивидуальные туры по Беларуси",
-                to: "#"
+                to: "/services?type=tourism&subtype=individual-excursions"
             },
             {
                 subtype: "Велоэкскурсии по городам Беларуси",
-                to: "#"
+                to: "/services?type=tourism&subtype=bike-excursions"
             },
             {
                 subtype: "Агротуризм",
-                to: "#"
+                to: "/services?type=tourism&subtype=agrotourism"
             },
         ]
     };
@@ -63,19 +63,19 @@ export const Navigation = () => {
         subtypes: [
             {
                 subtype: "Культурные объекты",
-                to: "#"
+                to: "/services?type=attractions&subtype=culture"
             },
             {
                 subtype: "Религиозные объекты",
-                to: "#"
+                to: "/services?type=attractions&subtype=religion"
             },
             {
                 subtype: "Архитектурные объекты",
-                to: "#"
+                to: "/services?type=attractions&subtype=architecture"
             },
             {
                 subtype: "Развлекательные объекты",
-                to: "#"
+                to: "/services?type=attractions&subtype=entertainment"
             },
         ]
     };
@@ -85,15 +85,15 @@ export const Navigation = () => {
         subtypes: [
             {
                 subtype: "Рестораны",
-                to: "#"
+                to: "/services?type=catering&subtype=restaurant"
             },
             {
                 subtype: "Кафе",
-                to: "#"
+                to: "/services?type=catering&subtype=cafe"
             },
             {
                 subtype: "Бары",
-                to: "#"
+                to: "/services?type=catering&subtype=bar"
             },
         ]
     };

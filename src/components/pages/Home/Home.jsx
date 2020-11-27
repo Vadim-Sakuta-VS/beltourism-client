@@ -3,6 +3,7 @@ import "./Home.scss";
 import {Stocks} from "../../Stocks/Stocks";
 import {AboutService} from "./AboutService/AboutService";
 import {Comments} from "./Comments/Comments";
+import PaginationButton from "../../PaginationButton/PaginationButton";
 
 export const Home = ({setPopupInfo, ...props})=>{
     const testDataStocks = [
@@ -137,9 +138,7 @@ export const Home = ({setPopupInfo, ...props})=>{
                   <div className="popular-stocks__content">
                       <h2 className="popular-stocks__title">Популярные акции</h2>
                       <Stocks stocks={testDataStocks}/>
-                      <div className="wrap-btn">
-                          <button className="btn btn__load-more-stocks">Показать еще</button>
-                      </div>
+                      <PaginationButton callback={()=>{}} classStyle="btn__load-more-s"/>
                   </div>
               </div>
           </section>

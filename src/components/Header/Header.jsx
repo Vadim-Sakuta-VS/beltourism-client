@@ -3,8 +3,15 @@ import "./Header.scss";
 import {Navigation} from "./Navigation/Navigation";
 import {NavLink} from "react-router-dom";
 import {POPUPS_FORMS} from "../../constants/constants"
+import {useLocation} from "react-router-dom"
 
 export const Header = ({setPopupInfo}) => {
+    let location = useLocation();
+
+    if (location.pathname === "/page404") {
+        return null;
+    }
+
     const onClickHandler = (form) => {
         setPopupInfo({activeForm: form, fromForm: ""});
     }

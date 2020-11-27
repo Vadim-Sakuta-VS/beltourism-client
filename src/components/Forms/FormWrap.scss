@@ -1,9 +1,15 @@
 .form-wrap {
   position: absolute;
-  top: 30%;
-  left: 50%;
   width: 30%;
-  transform: translate(-50%, -50%);
+
+  &.style-1 {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &.style-2 {
+    top: 0;
+  }
 
   .btn-close {
     position: absolute;

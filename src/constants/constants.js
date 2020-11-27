@@ -1,6 +1,7 @@
 const POPUPS_FORMS = {
     LOGIN: "LOGIN",
-    REGISTRATION: "REGISTRATION"
+    REGISTRATION: "REGISTRATION",
+    FILTERS: "FILTERS"
 }
 
 const VALIDATION_MES = {
@@ -22,4 +23,48 @@ const REGEX = {
     PASSWORD: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=_])(?=\S+$).{8,32}$/
 }
 
-export {POPUPS_FORMS, VALIDATION_MES, REGEX};
+const SERVICES = {
+    "housing": {
+        type: "Жилье",
+        subtypes: {
+            "hotel": "Отели",
+            "flat": "Кваритры",
+            "country-houses": "Загородные дома"
+        }
+    },
+    "transport": {
+        type: "Транспорт",
+        subtypes: {
+            "car": "Авто",
+            "moto": "Мото",
+        }
+    },
+    "tourism": {
+        type: "Туризм",
+        subtypes: {
+            "bus-excursions": "Автобусные экскурсионные туры по городам",
+            "individual-excursions": "Индивидуальные туры по Беларуси",
+            "bike-excursions": "Велоэкскурсии по городам Беларуси",
+            "agrotourism": "Агротуризм",
+        }
+    },
+    "attractions": {
+        type: "Достопримечательности",
+        subtypes: {
+            "culture": "Культурные объекты",
+            "religion": "Религиозные объекты",
+            "architecture": "Архитектурные объекты",
+            "entertainment": "Развлекательные объекты",
+        }
+    },
+    "catering": {
+        type: "Общепит",
+        subtypes: {
+            "restaurant": "Рестораны",
+            "cafe": "Кафе",
+            "bar": "Бары",
+        }
+    }
+}
+
+export {POPUPS_FORMS, VALIDATION_MES, REGEX, SERVICES};

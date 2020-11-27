@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import "./Services.scss"
-import {useLocation} from "react-router-dom"
+import {useLocation, Redirect} from "react-router-dom"
 import {POPUPS_FORMS, SERVICES} from "../../../constants/constants";
 import ServiceItem from "./ServiceItem/ServiceItem";
 import {ServicesMap} from "./ServicesMap/ServicesMap";
@@ -12,9 +12,7 @@ const Services = ({history, setPopupInfo, ...props}) => {
     let type = query.get("type");
     let subtype = query.get("subtype");
     if (!type || !subtype) {
-        console.log(props)
-        history.goBack();
-        return null;
+        return <Redirect to="/page404"/>;
     }
 
     const testDataServices = [

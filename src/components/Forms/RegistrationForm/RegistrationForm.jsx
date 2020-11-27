@@ -63,7 +63,7 @@ export const RegistrationForm = ({activeForm, setPopupInfo}) => {
     });
 
     return (
-        <FormWrap activeForm={activeForm} setPopupInfo={setPopupInfo}>
+        <FormWrap activeForm={activeForm} setPopupInfo={setPopupInfo} classStyle="style-1">
             <Formik
                 initialValues={
                     {

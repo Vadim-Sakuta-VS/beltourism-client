@@ -1,0 +1,56 @@
+.services{
+  &__main-content {
+    .services__items {
+      .service-item {
+        position: relative;
+        background-color: white;
+        width: 100%;
+
+        .discount {
+          position: absolute;
+          top: 0;
+          left: 101%;
+          background-color: #1dd2af;
+          color: #fff;
+          padding: 5px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px 1px #1dd2af;
+        }
+        &__row-1 {
+          display: flex;
+
+          img {
+            width: 40%;
+            display: block;
+          }
+
+          .data-main {
+            width: 60%;
+            padding: 10px;
+
+            .props-2 {
+              margin-top: 10px;
+
+              & > div:not(:first-child) {
+                margin-top: 5px;
+              }
+            }
+          }
+        }
+
+        &__row-2 {
+          border-top: 1px solid #2c3e50;
+          padding: 10px;
+          font-size: 1rem;
+          .description{
+            margin-bottom: 10px;
+          }
+        }
+
+        &:not(:first-child) {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}

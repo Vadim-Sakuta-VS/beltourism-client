@@ -1,0 +1,41 @@
+.opening-hours {
+  position: relative;
+  display: flex;
+
+  .show-all-days {
+    margin-left: 5px;
+    color: #808080;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+      text-shadow: 0 0 10px #2c3e50;
+    }
+  }
+
+  .all-days {
+    position: absolute;
+    top: 50%;
+    left: 105%;
+    width: 55%;
+    background-color: #fff;
+    transform: translateY(-50%);
+    padding: 5px;
+    font-size: .7rem;
+    box-shadow: 0 0 10px 1px #808080;
+
+    .day {
+      display: flex;
+      justify-content: space-between;
+
+      &.current{
+        .day__name{
+          font-weight: 900;
+        }
+        .day__time span{
+          text-shadow: 0 0 10px #2c3e50;
+        }
+      }
+    }
+  }
+}

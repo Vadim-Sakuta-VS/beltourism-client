@@ -4,6 +4,7 @@ import {useTransition, animated} from "react-spring";
 import {LoginForm} from "../Forms/LoginForm/LoginForm";
 import {RegistrationForm} from "../Forms/RegistrationForm/RegistrationForm";
 import {POPUPS_FORMS} from "../../constants/constants";
+import FiltersForm from "../Forms/FiltersForm/FiltersForm";
 
 export const Popup = ({popupInfo, setPopupInfo}) => {
     let {activeForm, fromFormClosed} = popupInfo;
@@ -37,6 +38,11 @@ export const Popup = ({popupInfo, setPopupInfo}) => {
         />
     }else if(activeForm === POPUPS_FORMS.REGISTRATION || fromFormClosed === POPUPS_FORMS.REGISTRATION){
         formComponent = <RegistrationForm
+            {...popupInfo}
+            setPopupInfo={setPopupInfo}
+        />
+    }else if(activeForm === POPUPS_FORMS.FILTERS || fromFormClosed === POPUPS_FORMS.FILTERS){
+        formComponent = <FiltersForm
             {...popupInfo}
             setPopupInfo={setPopupInfo}
         />

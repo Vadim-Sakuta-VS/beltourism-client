@@ -1,0 +1,31 @@
+.location {
+  display: flex;
+  padding: 5px 3px;
+  background-color: #eeeded;
+  font-size: 1rem;
+
+  .contact-details-name {
+    margin-right: 5px;
+  }
+
+  .address {
+    margin-left: 5px;
+    white-space: pre;
+  }
+
+  i {
+    margin-left: 5px;
+    color: #2c3e50;
+  }
+
+  &.style-comment {
+    padding: 0;
+    font-size: 0.8rem;
+    color: #808080;
+    background-color: transparent;
+  }
+
+  &.style-popup-location {
+    font-size: .7rem;
+  }
+}

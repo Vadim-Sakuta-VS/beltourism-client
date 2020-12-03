@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import "./PaginationButton.scss";
 
 const PaginationLoader = () => {
@@ -22,23 +22,21 @@ const PaginationLoader = () => {
     )
 }
 
-const PaginationButton = ({callback, classStyle}) => {
-    let [isShowingLoader, setIsShowingLoader] = useState(false);
+const PaginationButton = ({callback, isShowingPaginationLoader, classStyle}) => {
 
     const onClickHandler = () => {
         callback();
-        setIsShowingLoader(true);
-        setTimeout(() => setIsShowingLoader(false), 3000);
     }
 
     return (
         <div className="wrap-btn">
             <button
-                className={`btn ${classStyle}`}
+                className={`btn ${classStyle} ${isShowingPaginationLoader ? "disabled" : ""}`}
+                disabled={isShowingPaginationLoader}
                 onClick={onClickHandler}
             >
                 {
-                    isShowingLoader
+                    isShowingPaginationLoader
                         ? <PaginationLoader/>
                         : <span className="btn-value">Показать еще</span>
                 }

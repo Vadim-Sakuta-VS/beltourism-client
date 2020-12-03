@@ -1,5 +1,5 @@
 import React from "react";
-import "./Stock.scss";
+import "./Stocks.scss";
 import {StockItem} from "./StockItem/StockItem";
 
 export const Stocks = ({stocks}) => {

@@ -2,17 +2,16 @@ import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import 'react-leaflet-markercluster/dist/styles.min.css';
 import "./ServicesMap.scss";
-import {FeatureGroup, MapContainer, Marker, Popup, TileLayer, Tooltip, ZoomControl} from "react-leaflet";
+import {MapContainer, Marker, Popup, TileLayer, Tooltip, ZoomControl} from "react-leaflet";
 import L from "leaflet";
 import {NameLink} from "../NameLink/NameLink";
-import {Location} from "../Location/Location";
+import {Location} from "../../../Locations/Location/Location";
 import {OpeningHours} from "../../../OpeningHours/OpeningHours";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 
 L.Icon.Default.imagePath="https://unpkg.com/leaflet@1.5.0/dist/images/";
 
 export const ServicesMap = ({services}) => {
-    console.log(services)
     let markersElements=[];
     services.forEach(s=>{
         s.locations.forEach(l=>{
@@ -24,7 +23,7 @@ export const ServicesMap = ({services}) => {
                             value={s.name}
                             classStyle="name-link"
                         />
-                        <Location name={l.name} address={l.address}/>
+                        <Location city={l.name} address={l.address}/>
                         <OpeningHours opening_hours={s.opening_hours} isShowingAll={false}/>
                     </Popup>
                     <Tooltip>{s.name}</Tooltip>
@@ -44,8 +43,6 @@ export const ServicesMap = ({services}) => {
                 <MarkerClusterGroup>
                     {markersElements}
                 </MarkerClusterGroup>
-
-
             </MapContainer>
         </div>
     );

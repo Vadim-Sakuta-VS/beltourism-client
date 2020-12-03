@@ -2,7 +2,7 @@ import React from "react";
 import "./Footer.scss";
 import {useLocation} from "react-router-dom";
 
-export const Footer = () => {
+export const Footer = ({isShowingPageLoader}) => {
     let location = useLocation();
 
     if (location.pathname === "/page404") {
@@ -10,7 +10,7 @@ export const Footer = () => {
     }
 
     return (
-        <footer className="footer">
+        <footer className="footer" style={isShowingPageLoader ? {top: "20vh"} : null}>
             <div className="container">
                 <div className="footer__content">
                     <div className="social-links">

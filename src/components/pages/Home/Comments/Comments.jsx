@@ -9,7 +9,7 @@ function SampleNextArrow(props) {
         <i
             className="fas fa-chevron-right arrow-next"
             onClick={onClick}
-        ></i>
+        />
     );
 }
 
@@ -19,7 +19,7 @@ function SamplePrevArrow(props) {
         <i
             className="fas fa-chevron-left arrow-prev"
             onClick={onClick}
-        ></i>
+        />
     );
 }
 
@@ -44,11 +44,15 @@ export const Comments = ({comments}) => {
             <div className="container">
                 <div className="user-comments__content">
                     <h2 className="user-comments__title">Отзывы пользователей</h2>
-                    <div className="comments">
-                        <Slider {...settings}>
-                            {commentsElements}
-                        </Slider>
-                    </div>
+                    {
+                        commentsElements.length
+                            ? <div className="comments">
+                                <Slider {...settings}>
+                                    {commentsElements}
+                                </Slider>
+                              </div>
+                            : <div className="result-null">На данный момент нет отзывов</div>
+                    }
                 </div>
             </div>
         </section>

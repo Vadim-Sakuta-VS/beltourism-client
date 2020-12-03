@@ -3,13 +3,18 @@ import "./StockItem.scss";
 import {NavLink} from "react-router-dom";
 import {Property} from "./Property/Property";
 import {PropertyPrice} from "./Property/PropertyPrice";
+import {useSpring, animated} from "react-spring";
 
 export const StockItem = ({service_name, img_url, discount, location, mark, price}) => {
     const serviceNameShort = service_name.length > 33 ? `${service_name.slice(0, 33)}...` : service_name;
+    const props = useSpring({
+        from: {opacity: 0},
+        to: {opacity: 1}
+    });
 
     return (
-        <NavLink className="stock-item-link" to="#">
-            <div className="stock-item">
+        <NavLink className="stock-item-link" to="#" style={props}>
+            <animated.div className="stock-item" style={props}>
                 <div className="stock-item__wrap-data">
                     <img src={`${img_url}`} alt="img"/>
                     <div className="discount">{discount}%</div>
@@ -35,7 +40,7 @@ export const StockItem = ({service_name, img_url, discount, location, mark, pric
                         </div>
                     </div>
                 </div>
-            </div>
+            </animated.div>
         </NavLink>
     );
 }

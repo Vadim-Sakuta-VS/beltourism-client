@@ -1,19 +1,23 @@
 import React from 'react';
 import "./ServiceItem.scss"
-import {NavLink} from "react-router-dom";
 import {PropertyPrice} from "../../../Stocks/StockItem/Property/PropertyPrice";
 import {Property} from "../../../Stocks/StockItem/Property/Property";
 import {HotelStars} from "../../../HotelStars/HotelStars";
 import {OpeningHours} from "../../../OpeningHours/OpeningHours";
 import {NameLink} from "../NameLink/NameLink";
-import {Location} from "../Location/Location";
+import {Location} from "../../../Locations/Location/Location";
+import {useSpring, animated} from "react-spring";
+import {Locations} from "../../../Locations/Locations";
 
-const ServiceItem = ({id, type, name, description, price, stocks, opening_hours, locations, stars, rating}) => {
+const ServiceItem = ({id, type, name, description, price, contactDetails, stocks, opening_hours, locations, stars, rating}) => {
+    const props = useSpring({
+        from: {opacity: 0},
+        to: {opacity: 1}
+    });
     let discount = stocks.length && stocks[0].discount;
-    let location = locations[0];
 
     return (
-        <div className="service-item">
+        <animated.div className="service-item" style={props}>
             {discount ? <div className="discount">{discount}%</div> : null}
             <div className="service-item__row-1">
                 <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg" alt=""/>
@@ -38,9 +42,20 @@ const ServiceItem = ({id, type, name, description, price, stocks, opening_hours,
                 <div className="description">
                     {description}
                 </div>
-                <Location name={location.name} address={location.address}/>
+                {
+                    locations.length > 1
+                        ? <Locations
+                            contactDetailsName={contactDetails.name}
+                            locations={locations}
+                        />
+                        : <Location
+                            contactDetailsName={contactDetails.name}
+                            city={locations[0].name}
+                            address={locations[0].address}
+                        />
+                }
             </div>
-        </div>
+        </animated.div>
     );
 };
 

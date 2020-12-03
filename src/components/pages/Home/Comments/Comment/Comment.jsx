@@ -1,6 +1,7 @@
 import React from "react";
 import "./Comment.scss";
 import {NavLink} from "react-router-dom";
+import {Location} from "../../../../Locations/Location/Location";
 
 export const Comment = ({service_name, company_name, location, mark, text, user_ns, date}) => {
     return (
@@ -8,13 +9,7 @@ export const Comment = ({service_name, company_name, location, mark, text, user_
             <div className="comment">
                 <div className="comment__header">
                     <h4 className="service-name">{service_name}</h4>
-                    <div className="service__detail">
-                        <p className="company-name">{company_name},</p>
-                        <div className="location">
-                            <p className="location-value">{location}</p>
-                            <i className="fas fa-map-marker-alt"></i>
-                        </div>
-                    </div>
+                    <Location contactDetailsName={company_name} city={location} classStyle="style-comment"/>
                 </div>
                 <NavLink to="#" className="comment-link">
                     <div className="comment__body">

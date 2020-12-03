@@ -67,4 +67,11 @@ const SERVICES = {
     }
 }
 
-export {POPUPS_FORMS, VALIDATION_MES, REGEX, SERVICES};
+const API_URL = {
+    BASE: "http://localhost:8081",
+    STOCKS: "/stocks",
+    SERVICES_TYPE: "/services/type",
+    SERVICES_SUBTYPE: "/services/subType",
+}
+
+export {POPUPS_FORMS, VALIDATION_MES, REGEX, SERVICES, API_URL};

@@ -9,15 +9,15 @@ export const Navigation = () => {
         subtypes: [
             {
                 subtype: "Отели",
-                to: "/services?type=housing&subtype=hotel"
+                to: "/services?type=housing&subType=hotel"
             },
             {
                 subtype: "Квартиры",
-                to: "/services?type=housing&subtype=flat"
+                to: "/services?type=housing&subType=flat"
             },
             {
                 subtype: "Загородные дома",
-                to: "/services?type=housing&subtype=country-houses"
+                to: "/services?type=housing&subType=country-houses"
             },
         ]
     };
@@ -27,11 +27,11 @@ export const Navigation = () => {
         subtypes: [
             {
                 subtype: "Авто",
-                to: "/services?type=transport&subtype=car"
+                to: "/services?type=transport&subType=car"
             },
             {
                 subtype: "Мото",
-                to: "/services?type=transport&subtype=moto"
+                to: "/services?type=transport&subType=moto"
             },
         ]
     };
@@ -41,19 +41,19 @@ export const Navigation = () => {
         subtypes: [
             {
                 subtype: "Автобусные экскурсионные туры по городам",
-                to: "/services?type=tourism&subtype=bus-excursions"
+                to: "/services?type=tourism&subType=bus-excursions"
             },
             {
                 subtype: "Индивидуальные туры по Беларуси",
-                to: "/services?type=tourism&subtype=individual-excursions"
+                to: "/services?type=tourism&subType=individual-excursions"
             },
             {
                 subtype: "Велоэкскурсии по городам Беларуси",
-                to: "/services?type=tourism&subtype=bike-excursions"
+                to: "/services?type=tourism&subType=bike-excursions"
             },
             {
                 subtype: "Агротуризм",
-                to: "/services?type=tourism&subtype=agrotourism"
+                to: "/services?type=tourism&subType=agrotourism"
             },
         ]
     };
@@ -63,19 +63,19 @@ export const Navigation = () => {
         subtypes: [
             {
                 subtype: "Культурные объекты",
-                to: "/services?type=attractions&subtype=culture"
+                to: "/services?type=attractions&subType=culture"
             },
             {
                 subtype: "Религиозные объекты",
-                to: "/services?type=attractions&subtype=religion"
+                to: "/services?type=attractions&subType=religion"
             },
             {
                 subtype: "Архитектурные объекты",
-                to: "/services?type=attractions&subtype=architecture"
+                to: "/services?type=attractions&subType=architecture"
             },
             {
                 subtype: "Развлекательные объекты",
-                to: "/services?type=attractions&subtype=entertainment"
+                to: "/services?type=attractions&subType=entertainment"
             },
         ]
     };
@@ -85,15 +85,15 @@ export const Navigation = () => {
         subtypes: [
             {
                 subtype: "Рестораны",
-                to: "/services?type=catering&subtype=restaurant"
+                to: "/services?type=catering&subType=restaurant"
             },
             {
                 subtype: "Кафе",
-                to: "/services?type=catering&subtype=cafe"
+                to: "/services?type=catering&subType=cafe"
             },
             {
                 subtype: "Бары",
-                to: "/services?type=catering&subtype=bar"
+                to: "/services?type=catering&subType=bar"
             },
         ]
     };

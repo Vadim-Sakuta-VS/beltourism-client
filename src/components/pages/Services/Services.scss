@@ -41,6 +41,14 @@
       position: relative;
       z-index: 500;
       width: 40%;
+
+      .result-null {
+        margin-top: 3%;
+        padding: 10px;
+        background-color: #fff;
+        text-align: center;
+        font-size: 1.3rem;
+      }
     }
   }
 }

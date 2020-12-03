@@ -1,7 +1,13 @@
 .stock-item-link{
   flex-basis: 30%;
+  margin-left: 5%;
+
   &:nth-child(n+4){
     margin-top: 35px;
+  }
+
+  &:nth-child(3n+1){
+    margin-left: 0;
   }
 }
 

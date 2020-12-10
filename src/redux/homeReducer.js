@@ -7,7 +7,7 @@ import {
 } from "./actionTypes";
 
 const initialState = {
-    pageNumberStocks: 0,
+    pageNumberStocks: -1,
     isShowingPaginationStocksLoader: false,
     stocks: [],
     comments: []
@@ -24,7 +24,7 @@ export function homeReducer(state = initialState, action) {
         case SET_PAGE_NUMBER_STOCKS_HOME:
             return {...state, pageNumberStocks: action.payload};
         case RESET_PAGE_NUMBER_STOCKS_HOME:
-            return {...state, pageNumberStocks: 0};
+            return {...state, pageNumberStocks: -1};
         case SET_COMMENTS_HOME:
             return {...state, comments: action.payload};
         default:

@@ -7,7 +7,7 @@ import {
 } from "./actionTypes";
 
 const initialState = {
-    pageNumberServices: 0,
+    pageNumberServices: -1,
     isShowingPaginationServicesLoader: false,
     services: [],
 }
@@ -23,7 +23,7 @@ export function servicesReducer(state = initialState, action) {
         case SET_PAGE_NUMBER_SERVICES:
             return {...state, pageNumberServices: action.payload};
         case RESET_PAGE_NUMBER_SERVICES:
-            return {...state, pageNumberServices: 0, services: []};
+            return {...state, pageNumberServices: -1, services: []};
         default:
             return {...state};
     }

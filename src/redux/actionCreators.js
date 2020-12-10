@@ -30,7 +30,7 @@ export function initHomePage() {
             dispatch(showPageLoader());
 
             let pageNumber = getState().home.pageNumberStocks;
-            if (!pageNumber) {
+            if (pageNumber === -1) {
                 let stocks = await loadStocks(++pageNumber, 6);
                 // console.log(stocks);
                 dispatch(setStocksHome(testDataStocks));
@@ -117,7 +117,7 @@ export function initServicesPage(paramsStr) {
 
             let pageNumber = getState().services.pageNumberServices;
             // console.log(pageNumber)
-            if (!pageNumber) {
+            if (pageNumber === -1) {
                 let services = await loadServices(++pageNumber, 20, paramsStr);
                 // console.log(services);
                 dispatch(setServices(testDataServices));

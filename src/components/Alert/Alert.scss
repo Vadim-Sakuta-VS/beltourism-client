@@ -1,0 +1,47 @@
+.alert {
+  position: fixed;
+  top: 15vh;
+  right: -7%;
+  padding: 3px;
+  background-color: white;
+  z-index: 1000;
+
+  &.good {
+    box-shadow: 0 0 5px 3px #008000;
+  }
+
+  &.error {
+    box-shadow: 0 0 5px 3px #ff0000;
+  }
+
+  .alert-border {
+    position: relative;
+    padding: 10px 20px;
+    color: #2c3e50;
+
+    &.good {
+      border: 1px solid #008000;
+    }
+
+    &.error {
+      border: 1px solid #ff0000;
+    }
+
+    .btn-hide-alert {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      font-size: .8rem;
+      cursor: pointer;
+      transition: .2s;
+
+      &:hover{
+        text-shadow: 0 0 10px #2c3e50;
+      }
+    }
+  }
+
+  &__value {
+    font-size: 1rem;
+  }
+}

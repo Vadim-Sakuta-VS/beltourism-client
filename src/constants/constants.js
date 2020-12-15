@@ -16,6 +16,12 @@ const VALIDATION_MES = {
         NOT_VALID: "Не валидный пароль",
         NOT_MATCH: "Пароли не совпадают"
     },
+    SERVICE: {
+        MIN_LENGTH: "Минимальная длина - 2 символа",
+        PRICE: {
+            MIN_VALUE: "Минимальная стоимость - 0руб"
+        }
+    },
     REQUIRED: "Обязательное поле"
 }
 
@@ -69,9 +75,12 @@ const SERVICES = {
 
 const API_URL = {
     BASE: "http://localhost:8081",
-    STOCKS: "/stocks",
+    STOCKS_GET: "/stocks/get",
     SERVICES_TYPE: "/services/type",
     SERVICES_SUBTYPE: "/services/subType",
+    ADD_TRANSPORT: "/transport/add",
+    ADD_ATTRACTION: "/attractions/add",
+    ADD_HOUSING: "/housing/add",
 }
 
 export {POPUPS_FORMS, VALIDATION_MES, REGEX, SERVICES, API_URL};

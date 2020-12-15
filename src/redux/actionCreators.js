@@ -1,16 +1,17 @@
 import {
+    HIDE_ALERT,
     HIDE_PAGE_LOADER,
     HIDE_PAGINATION_SERVICES_LOADER,
     HIDE_PAGINATION_STOCKS_LOADER_HOME, RESET_PAGE_NUMBER_SERVICES,
-    RESET_PAGE_NUMBER_STOCKS_HOME,
+    RESET_PAGE_NUMBER_STOCKS_HOME, RESET_VALUES_ALERT,
     SET_COMMENTS_HOME, SET_PAGE_NUMBER_SERVICES,
     SET_PAGE_NUMBER_STOCKS_HOME, SET_SERVICES,
-    SET_STOCKS_HOME,
+    SET_STOCKS_HOME, SHOW_ALERT,
     SHOW_PAGE_LOADER,
     SHOW_PAGINATION_SERVICES_LOADER,
     SHOW_PAGINATION_STOCKS_LOADER_HOME
 } from "./actionTypes";
-import {loadServices, loadStocks} from "../api/api";
+import {addAttractionService, addHousingService, addTransportService, loadServices, loadStocks} from "../api/api";
 
 export function showPageLoader() {
     return {
@@ -21,6 +22,28 @@ export function showPageLoader() {
 export function hidePageLoader() {
     return {
         type: HIDE_PAGE_LOADER
+    };
+}
+
+export function showAlert(value, classStyle) {
+    return {
+        type: SHOW_ALERT,
+        payload: {
+            value,
+            classStyle
+        }
+    }
+}
+
+export function hideAlert() {
+    return {
+        type: HIDE_ALERT
+    };
+}
+
+export function resetValuesAlert() {
+    return {
+        type: RESET_VALUES_ALERT
     };
 }
 
@@ -185,6 +208,62 @@ function setPageNumberServices(pageNumber) {
 export function resetPageNumberServices() {
     return {
         type: RESET_PAGE_NUMBER_SERVICES,
+    }
+}
+
+////////////////////////////////////// Admin
+
+function showServiceAlert(dispatch, setSubmitting, resetForm) {
+    setSubmitting(false);
+    resetForm();
+    dispatch(showAlert("Услуга добавлена", "good"));
+    setTimeout(() => {
+        dispatch(hideAlert());
+        setTimeout(() => dispatch(resetValuesAlert()), 500);
+    }, 3000);
+}
+
+function hideServiceAlert(dispatch, setSubmitting) {
+    setSubmitting(false);
+    dispatch(showAlert("Что-то пошло не так", "error"));
+    setTimeout(() => {
+        dispatch(hideAlert());
+        setTimeout(() => dispatch(resetValuesAlert()), 500);
+    }, 3000);
+}
+
+export function addTransportServiceAdmin(obj, setSubmitting, resetForm) {
+    return async (dispatch) => {
+        try {
+            let res = await addTransportService(obj);
+            showServiceAlert(dispatch, setSubmitting, resetForm)
+            console.log(res)
+
+        } catch (err) {
+            hideServiceAlert(dispatch, setSubmitting);
+        }
+    }
+}
+
+export function addAttractionServiceAdmin(obj, setSubmitting, resetForm) {
+    return async (dispatch) => {
+        try {
+            let res = await addAttractionService(obj);
+            showServiceAlert(dispatch, setSubmitting, resetForm)
+        } catch (err) {
+            hideServiceAlert(dispatch, setSubmitting);
+        }
+    }
+}
+
+export function addHousingServiceAdmin(obj, setSubmitting, resetForm) {
+    return async (dispatch) => {
+        try {
+            let res = await addHousingService(obj);
+            showServiceAlert(dispatch, setSubmitting, resetForm)
+        } catch (err) {
+            hideServiceAlert(dispatch, setSubmitting);
+        }
     }
 }
 

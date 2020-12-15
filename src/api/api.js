@@ -44,7 +44,7 @@ export function loadStocks(pageNumber, pageSize, sortBy) {
     );
 
     return request({
-        url: API_URL.BASE + API_URL.STOCKS + paramsStr,
+        url: API_URL.BASE + API_URL.STOCKS_GET + paramsStr,
         method: "GET"
     });
 }
@@ -61,5 +61,29 @@ export function loadServices(pageNumber, pageSize, paramsStrArg) {
     return request({
         url: API_URL.BASE + API_URL.SERVICES_SUBTYPE + paramsStr,
         method: "GET"
+    });
+}
+
+export function addTransportService(obj){
+    return request({
+        url: API_URL.BASE + API_URL.ADD_TRANSPORT,
+        method: "POST",
+        body: JSON.stringify(obj)
+    });
+}
+
+export function addAttractionService(obj){
+    return request({
+        url: API_URL.BASE + API_URL.ADD_ATTRACTION,
+        method: "POST",
+        body: JSON.stringify(obj)
+    });
+}
+
+export function addHousingService(obj){
+    return request({
+        url: API_URL.BASE + API_URL.ADD_HOUSING,
+        method: "POST",
+        body: JSON.stringify(obj)
     });
 }

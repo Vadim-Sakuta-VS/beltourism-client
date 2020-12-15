@@ -1,16 +1,16 @@
 import React from "react";
-import "./TextField.scss";
+import "./TextareaField.scss";
 import {useTextField} from "./textFieldHook";
 
-export const TextField = (props) => {
+export const TextareaField = (props) => {
     let {meta, refField, bind} = useTextField(props);
 
     return (
-        <div ref={refField} className="text-field" style={props.style}>
-            <input
+        <div ref={refField} className="textarea-field">
+            <textarea
                 {...props}
                 {...bind}
-                className="input"
+                className="textarea"
                 autoComplete="off"
             />
             <div className="error">

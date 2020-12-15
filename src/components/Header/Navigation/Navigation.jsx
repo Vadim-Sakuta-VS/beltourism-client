@@ -99,7 +99,7 @@ export const Navigation = () => {
     };
 
     return (
-        <nav>
+        <nav className="navigation-menu">
             <div className="container">
                 <ul className="menu">
                     <Dropdown

@@ -9,6 +9,8 @@ import {Services} from "./components/pages/Services/Services";
 import {Page404} from "./components/pages/Page404/Page404";
 import {PageLoader} from "./components/PageLoader/PageLoader";
 import {useSelector} from "react-redux";
+import {ServicesManipulation} from "./components/pages/admin/ServicesManipulation/ServicesManipulation";
+import {Alert} from "./components/Alert/Alert";
 
 function App() {
   let [popupInfo, setPopupInfo] = useState({activeForm: "", fromFormClosed: ""});
@@ -17,6 +19,7 @@ function App() {
   return (
       <Router>
         <div className="app">
+          <Alert/>
           <Popup popupInfo={popupInfo} setPopupInfo={setPopupInfo}/>
           <Header setPopupInfo={setPopupInfo}/>
           <div className="pages">
@@ -41,6 +44,14 @@ function App() {
                 <Route exact path="/services"
                        render={
                            (props) => <Services
+                               {...props}
+                               isShowingPageLoader={isShowingPageLoader}
+                               setPopupInfo={setPopupInfo}/>
+                       }
+                />
+                <Route path="/admin/services-manipulation"
+                       render={
+                           (props) => <ServicesManipulation
                                {...props}
                                isShowingPageLoader={isShowingPageLoader}
                                setPopupInfo={setPopupInfo}/>

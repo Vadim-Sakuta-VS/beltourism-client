@@ -1,6 +1,9 @@
 // app-general
 export const SHOW_PAGE_LOADER = "SHOW_PAGE_LOADER/app";
 export const HIDE_PAGE_LOADER = "HIDE_PAGE_LOADER/app";
+export const SHOW_ALERT = "SHOW_ALERT/app";
+export const HIDE_ALERT = "HIDE_ALERT/app";
+export const RESET_VALUES_ALERT = "RESET_VALUES_ALERT/app";
 // home
 export const SET_STOCKS_HOME = "SET_STOCKS/home";
 export const SHOW_PAGINATION_STOCKS_LOADER_HOME = "SHOW_PAGINATION_STOCKS_LOADER_HOME/home";

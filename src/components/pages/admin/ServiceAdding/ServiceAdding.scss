@@ -1,0 +1,65 @@
+.service-adding__form-wrap {
+  margin-top: 20px;
+  border-top: 1px dashed #2c3e50;
+
+  .service-adding__form {
+    .fields-wrap {
+      .facilities {
+        position: relative;
+        margin-top: 30px;
+
+        &__title{
+          position: sticky;
+          top: 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          padding: 10px 0;
+          border: 4px dotted #2c3e50;
+          font-size: 1.4rem;
+          color: #2c3e50;
+          background-color: #fff;
+
+          .btn-add-facility {
+            font-size: 1.8rem;
+            color: #2c3e50;
+          }
+          z-index: 1;
+        }
+
+        .btn-facility{
+          font-size: 1.8rem;
+          color: #2c3e50;
+          cursor: pointer;
+          transition: .2s;
+
+          &:hover{
+            text-shadow: 0 0 10px #2c3e50;
+          }
+        }
+
+        &__items{
+          .facility-item{
+            display: flex;
+            margin-top: 30px;
+
+            .col-1, .col-2{
+              flex-basis: 47%;
+            }
+            .col-2{
+              margin-left: 20px;
+            }
+            .col-3{
+              flex-basis: 6%;
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+
+    .btns {
+      display: flex;
+    }
+  }
+}

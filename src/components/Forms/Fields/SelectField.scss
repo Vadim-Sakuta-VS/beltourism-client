@@ -1,0 +1,26 @@
+.select-field {
+  position: relative;
+
+  .error {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    font-size: 0.9rem;
+    color: #ff0000;
+  }
+}
+
+.select {
+  width: 100%;
+  font-size: 1.2rem;
+  resize: vertical;
+  margin-top: 3%;
+  outline: none;
+  border: 1px solid #2c3e50;
+  border-radius: 5px;
+  transition: .2s;
+
+  &:focus {
+    border-color: #1dd2af;
+  }
+}

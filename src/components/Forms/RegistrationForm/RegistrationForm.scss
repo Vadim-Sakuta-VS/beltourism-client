@@ -8,6 +8,13 @@
       font-size: 1rem;
       color: #808080;
       transform: translateY(-50%);
+
+
+      &:hover + .password-requirements{
+        opacity: 1;
+        visibility: visible;
+        transition-delay: .3s;
+      }
     }
   }
 }

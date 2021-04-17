@@ -1,0 +1,38 @@
+.pictures {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+
+  &__img {
+    width: 210px;
+    margin: 0 10px 10px 0;
+    transition: .2s;
+
+    &--active{
+      box-shadow: 0 0 10px 1px #2c3e50;
+    }
+  }
+}
+
+.input-file {
+  display: none;
+}
+
+.picture-files-label {
+  display: inline-block;
+  padding: 10px 15px;
+  border: 1px solid #2c3e50;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover{
+    box-shadow: 0 0 10px 1px #2c3e50;
+  }
+}
+
+.pictures-info{
+  font-size: 10px;
+  color: #d2d2d2;
+}

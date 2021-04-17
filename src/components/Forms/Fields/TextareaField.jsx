@@ -1,8 +1,8 @@
-import React from "react";
-import "./TextareaField.scss";
-import {useTextField} from "./textFieldHook";
+import React from 'react';
+import './TextareaField.scss';
+import {useTextField} from './textFieldHook';
 
-export const TextareaField = (props) => {
+export const TextareaField = ({styleError, ...props}) => {
     let {meta, refField, bind} = useTextField(props);
 
     return (
@@ -13,7 +13,7 @@ export const TextareaField = (props) => {
                 className="textarea"
                 autoComplete="off"
             />
-            <div className="error">
+            <div className="error" style={styleError}>
                 {meta.error && meta.touched ? meta.error : null}
             </div>
         </div>

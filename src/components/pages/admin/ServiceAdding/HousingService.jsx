@@ -8,6 +8,10 @@ import {GeneralFields} from "./GeneralFields";
 import {ButtonReset} from "../../../Forms/ButtonReset/ButtonReset";
 import {ButtonSubmit} from "../../../Forms/ButtonSubmit/ButtonSubmit";
 import {useDispatch} from "react-redux";
+import Pictures from './Pictures';
+import OpeningHours from './OpeningHours';
+import ContactDetails from './ContactDetails';
+import Location from './Location';
 
 const FacilityItem = ({nameFieldFacility, nameFieldExtraPrice, remove}) => {
     return (
@@ -45,16 +49,17 @@ const FacilityItem = ({nameFieldFacility, nameFieldExtraPrice, remove}) => {
 export const HousingService = ({type, subTypes, initialValues, validationSchema}) => {
     let dispatch = useDispatch();
 
-    console.log(validationSchema)
-
     initialValues = {
         ...initialValues,
         stars: "",
         center_distance: "",
         category: "",
-        facilities: []
+        facilities: [],
+        pictureFiles: [],
+        openingHours: [],
+        location: null,
+        contactDetails: {}
     }
-
 
     return (
         <div className="service-adding__form-wrap">
@@ -62,18 +67,11 @@ export const HousingService = ({type, subTypes, initialValues, validationSchema}
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={(values, {setSubmitting, resetForm}) => {
-                    for (const key in values) {
-                        if ((key !== "facilities" && key !== "type" && key !== "isBooked" && key !== "isActive"
-                            && values[key] === initialValues[key])) {
-                            delete values[key];
-                        }
-                    }
                     dispatch(addHousingServiceAdmin(values, setSubmitting, resetForm))
                 }}
             >
                 {
-                    ({isValid, isSubmitting, values}) => {
-
+                    ({isValid, isSubmitting, values, setFieldValue}) => {
                         return (
                             <Form className="service-adding__form">
                                 <div className="fields-wrap">
@@ -138,6 +136,10 @@ export const HousingService = ({type, subTypes, initialValues, validationSchema}
                                             )
                                         }
                                     </FieldArray>
+                                    <Pictures setFieldValue={setFieldValue} pictureFiles={values.pictureFiles}/>
+                                    <OpeningHours setFieldValue={setFieldValue} openingHours={values.openingHours}/>
+                                    <ContactDetails setFieldValue={setFieldValue} contactDetails={values.contactDetails}/>
+                                    <Location setFieldValue={setFieldValue} location={values.location}/>
                                 </div>
                                 <div className="btns">
                                     <ButtonReset

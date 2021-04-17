@@ -8,7 +8,6 @@ import {HousingService} from "./HousingService";
 
 export const ServiceAdding = () => {
     let [currentType, setCurrentType] = useState("Выберите тип");
-    console.log(currentType)
 
     let types = [];
     for (const key in SERVICES) {
@@ -21,8 +20,8 @@ export const ServiceAdding = () => {
         name: "",
         description: "",
         price: "",
-        isBooked: false,
-        isActive: false,
+        isBooked: true,
+        isActive: true,
     };
 
     let subTypes = [initialValues.subType];

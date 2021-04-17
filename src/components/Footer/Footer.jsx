@@ -16,22 +16,22 @@ export const Footer = ({isShowingPageLoader}) => {
                     <div className="social-links">
                         <a href="#" target="_blank" className="social-link">
                             <div className="link-content">
-                                <i className="fab fa-vk"></i>
+                                <i className="fab fa-vk"/>
                             </div>
                         </a>
                         <a href="#" target="_blank" className="social-link">
                             <div className="link-content">
-                                <i className="fab fa-telegram-plane"></i>
+                                <i className="fab fa-telegram-plane"/>
                             </div>
                         </a>
                         <a href="#" target="_blank" className="social-link">
                             <div className="link-content">
-                                <i className="fab fa-google-plus-g"></i>
+                                <i className="fab fa-google-plus-g"/>
                             </div>
                         </a>
                         <a href="#" target="_blank" className="social-link">
                             <div className="link-content">
-                                <i className="fab fa-viber"></i>
+                                <i className="fab fa-viber"/>
                             </div>
                         </a>
                     </div>
@@ -39,7 +39,7 @@ export const Footer = ({isShowingPageLoader}) => {
                         <div className="footer__logo">
                             <span>bel</span>booking
                         </div>
-                        <p className="copyright">Copyright &copy; 2020</p>
+                        <p className="copyright">Copyright &copy; 2021</p>
                     </div>
                 </div>
             </div>

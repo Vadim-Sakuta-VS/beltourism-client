@@ -1,0 +1,12 @@
+.location-add {
+  margin-top: 10px;
+  color: #2c3e50;
+
+  &__title {
+    margin-bottom: 5px;
+  }
+
+  &__title + p {
+    margin-bottom: 5px;
+  }
+}

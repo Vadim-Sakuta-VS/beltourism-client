@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "./Alert.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {useSpring, animated} from "react-spring";
@@ -12,13 +12,21 @@ export const Alert = () => {
     let props = useSpring(
         isShowing ? {
             from: {transform: "translateX(0)"},
-            to: {transform: "translateX(-60%)"}
+            to: {transform: "translateX(-20%)"}
 
         } : {
-            from: {transform: "translateX(-100%)"},
-            to: {transform: "translateX(50%)"},
+            from: {transform: "translateX(-30%)"},
+            to: {transform: "translateX(110%)"},
         }
     )
+
+    useEffect(() => {
+        if (isShowing) {
+            setTimeout(() => {
+                dispatch(hideAlert());
+            }, 3000);
+        }
+    }, [isShowing]);
 
     return (
         <animated.div className={`alert ${classStyle}`} style={props}>

@@ -6,7 +6,6 @@ import {TextareaField} from "../../../Forms/Fields/TextareaField";
 import {CheckboxRadioField} from "../../../Forms/Fields/CheckboxRadioField";
 
 export const GeneralFields = ({type, subTypes}) => {
-    console.log(subTypes)
     return (
         <>
             <SelectField
@@ -33,6 +32,7 @@ export const GeneralFields = ({type, subTypes}) => {
                 rows={5}
                 placeholder="Описание..."
                 style={{fontSize: "1rem"}}
+                maxLength={200}
             />
             <TextField
                 name="price"

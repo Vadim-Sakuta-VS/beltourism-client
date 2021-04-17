@@ -1,0 +1,45 @@
+.opening-hours-block {
+  color: #2c3e50;
+}
+
+.opening-hours__title {
+  margin-bottom: 10px;
+}
+
+.days {
+  max-width: 500px;
+
+  &__item {
+    position: relative;
+
+    > span {
+      position: absolute;
+      top: 50%;
+      left: 105%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 17px;
+      height: 17px;
+      transform: translateY(-50%);
+      color: red;
+      border: 1px solid red;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+}
+
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__time-from {
+    margin-right: 5px;
+  }
+
+  &__time-to {
+    margin-left: 25px;
+  }
+}

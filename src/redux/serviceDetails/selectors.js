@@ -1,0 +1,1 @@
+export const selectServiceData = (state) => state.serviceDetails.data;

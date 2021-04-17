@@ -1,0 +1,124 @@
+.service-details {
+  padding: 15px 0;
+
+  &__container {
+    position: relative;
+    display: flex;
+  }
+
+  &-tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 200px;
+
+    &-content {
+      flex-grow: 1;
+      margin-left: 150px;
+    }
+  }
+}
+
+.service-details-tab-btn {
+  position: relative;
+  background-color: transparent;
+  text-align: left;
+  color: #2c3e50;
+  margin-bottom: 10px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 2px;
+    background-color: #1dd2af;
+    visibility: hidden;
+    opacity: 0;
+    transition: .2s;
+  }
+
+  &.active::before {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.tab-main-content {
+  &__name {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #2c3e50;
+  }
+
+  &__location {
+    p {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.tab-row {
+  display: flex;
+  margin-bottom: 5px;
+
+  &__title {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+}
+
+.tab-pictures-content {
+  .picture-wrap {
+    margin-bottom: 10px;
+    text-align: center;
+
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+.vertical-buttons {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  i {
+    cursor: pointer;
+    font-size: 24px;
+  }
+
+  .bookmark-icon {
+    cursor: pointer;
+    font-size: 28px;
+    margin-bottom: 15px;
+
+    &.active {
+      color: pink;
+    }
+  }
+
+  .service-phone-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: rgba(12, 120, 56, 0.64);
+    box-shadow: 0 0 5px 0 rgba(12, 120, 56, 0.64);
+    color: #fff;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+      box-shadow: 0 0 10px 0 rgba(12, 120, 56, 0.64);
+    }
+  }
+}

@@ -13,16 +13,14 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {PageWrapper} from "../PageWrapper";
 
-export const Services = ({history, setPopupInfo, isShowingPageLoader, ...props}) => {
+export const Services = ({setPopupInfo, isShowingPageLoader}) => {
     let search = useLocation().search;
     let dispatch = useDispatch();
     let services = useSelector(state => state.services.services);
     const isShowingPaginationLoader = useSelector(state =>
         state.services.isShowingPaginationServicesLoader);
-    // useScrollToManager(isShowingPaginationLoader);
     let query = new URLSearchParams(search);
     const searchStorage = localStorage.getItem("services-search");
-    console.log(history);
 
     let type = query.get("type");
     let subtype = query.get("subType");
@@ -41,8 +39,11 @@ export const Services = ({history, setPopupInfo, isShowingPageLoader, ...props})
         return <Redirect to="/page404"/>;
     }
 
+    console.log('services component', services);
 
-    let serviceItemsElements = services.map(s => <ServiceItem key={s.id} {...s}/>);
+    let serviceItemsElements = services.map(s => (
+        s.service.isActive && s.service.isBooked && <ServiceItem key={s.service.id} service={s}/>
+    ));
 
     return (
         <PageWrapper isShowingPageLoader={isShowingPageLoader}>

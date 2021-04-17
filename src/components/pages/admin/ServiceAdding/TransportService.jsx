@@ -7,6 +7,10 @@ import {useDispatch} from "react-redux";
 import {addTransportServiceAdmin} from "../../../../redux/actionCreators";
 import {GeneralFields} from "./GeneralFields";
 import {ButtonReset} from "../../../Forms/ButtonReset/ButtonReset";
+import Pictures from './Pictures';
+import OpeningHours from './OpeningHours';
+import Location from './Location';
+import ContactDetails from './ContactDetails';
 
 
 function InitSubType({setCurrentSubtype}) {
@@ -25,14 +29,16 @@ function InitSubType({setCurrentSubtype}) {
 export const TransportService = ({type, subTypes, initialValues, validationSchema}) => {
     let [currentSubtype, setCurrentSubtype] = useState("Выберите подтип");
     let dispatch = useDispatch();
-    console.log(currentSubtype)
 
     initialValues = {
         ...initialValues,
         leaseType: "Тип аренды",
         category: "Категория",
+        pictureFiles: [],
+        openingHours: [],
+        location: null,
+        contactDetails: {}
     };
-
 
     let categoryOptions = [{value: initialValues.category, text: initialValues.category}];
     if (currentSubtype === "car") {
@@ -63,20 +69,11 @@ export const TransportService = ({type, subTypes, initialValues, validationSchem
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={(values, {setSubmitting, resetForm}) => {
-                    for (const key in values) {
-                        if (key !== "type" && key !== "isBooked" && key !== "isActive"
-                            && values[key] === initialValues[key]) {
-                            delete values[key];
-                        }
-                    }
                     dispatch(addTransportServiceAdmin(values, setSubmitting, resetForm))
                 }}
             >
                 {
-                    ({initialValues, isValid, isSubmitting}) => {
-                        console.log(initialValues)
-                        console.log(isValid)
-                        console.log(isSubmitting)
+                    ({isValid, isSubmitting, setFieldValue, values}) => {
                         return (
                             <Form className="service-adding__form">
                                 <div className="fields-wrap">
@@ -93,6 +90,10 @@ export const TransportService = ({type, subTypes, initialValues, validationSchem
                                     />
                                 </div>
                                 <InitSubType setCurrentSubtype={setCurrentSubtype}/>
+                                <Pictures setFieldValue={setFieldValue} pictureFiles={values.pictureFiles}/>
+                                <OpeningHours setFieldValue={setFieldValue} openingHours={values.openingHours}/>
+                                <ContactDetails setFieldValue={setFieldValue} contactDetails={values.contactDetails}/>
+                                <Location setFieldValue={setFieldValue} location={values.location}/>
                                 <div className="btns">
                                     <ButtonReset
                                         value="Очистить форму"

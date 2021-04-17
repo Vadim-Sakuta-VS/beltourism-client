@@ -1,0 +1,15 @@
+.rating {
+  i {
+    margin-right: 3px;
+    cursor: pointer;
+    transition: .1s;
+
+    &.active {
+      color: orange;
+    }
+
+    &.static {
+      cursor: default;
+    }
+  }
+}

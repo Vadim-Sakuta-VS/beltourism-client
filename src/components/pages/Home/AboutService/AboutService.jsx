@@ -2,9 +2,8 @@ import React from "react";
 import "./AboutService.scss";
 import Slider from "react-slick";
 import {Slide} from "./Slide/Slide";
-import {POPUPS_FORMS} from "../../../../constants/constants";
 
-export const AboutService = ({setPopupInfo}) => {
+export const AboutService = () => {
 
     const animateText = () => {
         let isCanAnimated = true;
@@ -99,11 +98,11 @@ export const AboutService = ({setPopupInfo}) => {
                 </p>
                 <div className="services">
                     <div className="service-item">
-                        <i className="far fa-check-circle"></i>
+                        <i className="far fa-check-circle"/>
                         <p className="service-item__text">Поиск и просмотр услуг</p>
                     </div>
                     <div className="service-item">
-                        <i className="far fa-check-circle"></i>
+                        <i className="far fa-check-circle"/>
                         <p className="service-item__text">Бронирование услуг</p>
                     </div>
                 </div>
@@ -111,14 +110,6 @@ export const AboutService = ({setPopupInfo}) => {
                 {/*delete*/}
                 <p className="about-service__count-users">
                     Более <span className="count">(Х)</span> зарегистрированных поьзователей.
-                </p>
-                <p className="about-service__conclusion">
-                    <span
-                        className="conclusion-first"
-                        onClick={()=>setPopupInfo({activeForm: POPUPS_FORMS.REGISTRATION, fromForm: ""})}
-                    >
-                        Регистрируйся
-                    </span> прямо сейчас, чтобы полнеценно пользоваться сервисом.
                 </p>
             </div>
         </section>

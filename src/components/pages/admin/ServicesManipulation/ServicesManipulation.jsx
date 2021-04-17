@@ -17,11 +17,11 @@ export const ServicesManipulation = () => {
                                 Добавление услуги
                             </NavLink>
                         </div>
-                        <div className="menu-link__wrap">
-                            <NavLink className="menu-link" to={`${url}/service-editing`}>
-                                Редактирование услуги
-                            </NavLink>
-                        </div>
+                        {/*<div className="menu-link__wrap">*/}
+                        {/*    <NavLink className="menu-link" to={`${url}/service-editing`}>*/}
+                        {/*        Редактирование услуги*/}
+                        {/*    </NavLink>*/}
+                        {/*</div>*/}
                         <div className="menu-link__wrap">
                             <NavLink className="menu-link" to={`${url}/service-deleting`}>
                                 Удаление услуги

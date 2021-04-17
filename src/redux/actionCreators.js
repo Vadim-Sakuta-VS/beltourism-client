@@ -11,7 +11,14 @@ import {
     SHOW_PAGINATION_SERVICES_LOADER,
     SHOW_PAGINATION_STOCKS_LOADER_HOME
 } from "./actionTypes";
-import {addAttractionService, addHousingService, addTransportService, loadServices, loadStocks} from "../api/api";
+import {
+    addAttractionService,
+    addHousingService,
+    addTransportService,
+    loadServices,
+    loadStocks, saveServiceContactDetails, saveServiceLocation, saveServiceOpeningHours,
+    saveServicePictures
+} from '../api/api';
 
 export function showPageLoader() {
     return {
@@ -68,6 +75,7 @@ export function initHomePage() {
             setTimeout(() => dispatch(hidePageLoader()), 1000);
 
         } catch (err) {
+            dispatch(setCommentsHome(testDataComments));
             setTimeout(() => dispatch(hidePageLoader()), 1000);
         }
     }
@@ -139,13 +147,10 @@ export function initServicesPage(paramsStr) {
             dispatch(showPageLoader());
 
             let pageNumber = getState().services.pageNumberServices;
-            // console.log(pageNumber)
             if (pageNumber === -1) {
                 let services = await loadServices(++pageNumber, 20, paramsStr);
-                // console.log(services);
-                dispatch(setServices(testDataServices));
-                // dispatch(setServices(services));
-                if (testDataServices.length) {
+                dispatch(setServices(services));
+                if (services.length) {
                     dispatch(setPageNumberServices(pageNumber));
                 }
             }
@@ -168,7 +173,7 @@ export function paginateServices(paramsStr) {
                 dispatch(setPageNumberServices(pageNumber));
             }
             setTimeout(() => {
-                dispatch(setServices(testDataServices));
+                dispatch(setServices(services));
                 dispatch(hidePaginationServicesLoader());
             }, 1000);
         } catch (err) {
@@ -213,34 +218,41 @@ export function resetPageNumberServices() {
 
 ////////////////////////////////////// Admin
 
-function showServiceAlert(dispatch, setSubmitting, resetForm) {
-    setSubmitting(false);
-    resetForm();
-    dispatch(showAlert("Услуга добавлена", "good"));
-    setTimeout(() => {
-        dispatch(hideAlert());
-        setTimeout(() => dispatch(resetValuesAlert()), 500);
-    }, 3000);
+export function showServiceAlert(setSubmitting, resetForm) {
+    return (dispatch) => {
+        setSubmitting(false);
+        resetForm();
+        dispatch(showAlert('Услуга добавлена', 'good'));
+    }
 }
 
-function hideServiceAlert(dispatch, setSubmitting) {
-    setSubmitting(false);
-    dispatch(showAlert("Что-то пошло не так", "error"));
-    setTimeout(() => {
-        dispatch(hideAlert());
-        setTimeout(() => dispatch(resetValuesAlert()), 500);
-    }, 3000);
+export function showServiceAlertError(setSubmitting) {
+    return (dispatch) => {
+        setSubmitting && setSubmitting(false);
+        dispatch(showAlert('Что-то пошло не так', 'error'));
+    }
 }
 
 export function addTransportServiceAdmin(obj, setSubmitting, resetForm) {
     return async (dispatch) => {
         try {
-            let res = await addTransportService(obj);
-            showServiceAlert(dispatch, setSubmitting, resetForm)
-            console.log(res)
-
+            let objToSend = {
+                'category': obj.category,
+                'description': obj.description,
+                'isActive': obj.isActive,
+                'isBooked': obj.isBooked,
+                'leaseType': obj.leaseType,
+                'name': obj.name,
+                'price': obj.price,
+                'subType': obj.subType,
+                'type': obj.type
+            };
+            let res = await addTransportService(objToSend,
+                getHeadersObj(getAdminToken()));
+            await saveCommonService(res.id, obj);
+            dispatch(showServiceAlert(setSubmitting, resetForm));
         } catch (err) {
-            hideServiceAlert(dispatch, setSubmitting);
+            dispatch(showServiceAlertError(setSubmitting));
         }
     }
 }
@@ -248,10 +260,21 @@ export function addTransportServiceAdmin(obj, setSubmitting, resetForm) {
 export function addAttractionServiceAdmin(obj, setSubmitting, resetForm) {
     return async (dispatch) => {
         try {
-            let res = await addAttractionService(obj);
-            showServiceAlert(dispatch, setSubmitting, resetForm)
+            let objToSend = {
+                'description': obj.description,
+                'isActive': obj.isActive,
+                'isBooked': obj.isBooked,
+                'name': obj.name,
+                'price': obj.price,
+                'subType': obj.subType,
+                'type': obj.type
+            };
+            let res = await addAttractionService(objToSend,
+                getHeadersObj(getAdminToken()));
+            await saveCommonService(res.id, obj);
+            dispatch(showServiceAlert(setSubmitting, resetForm));
         } catch (err) {
-            hideServiceAlert(dispatch, setSubmitting);
+            dispatch(showServiceAlertError(setSubmitting));
         }
     }
 }
@@ -259,12 +282,80 @@ export function addAttractionServiceAdmin(obj, setSubmitting, resetForm) {
 export function addHousingServiceAdmin(obj, setSubmitting, resetForm) {
     return async (dispatch) => {
         try {
-            let res = await addHousingService(obj);
-            showServiceAlert(dispatch, setSubmitting, resetForm)
+            console.log(obj);
+            let objToSend = {
+                'category': obj.category,
+                'description': obj.description,
+                'isActive': obj.isActive,
+                'isBooked': obj.isBooked,
+                'leaseType': obj.leaseType,
+                'name': obj.name,
+                'price': obj.price,
+                'subType': obj.subType,
+                'type': obj.type,
+                'facilities': obj.facilities,
+                'stars': obj.stars,
+                'center_distance': obj.center_distance
+            };
+            let res = await addHousingService(objToSend,
+                getHeadersObj(getAdminToken()));
+            await saveCommonService(res.id, obj);
+            dispatch(showServiceAlert(setSubmitting, resetForm));
         } catch (err) {
-            hideServiceAlert(dispatch, setSubmitting);
+            dispatch(showServiceAlertError(setSubmitting));
         }
     }
+}
+
+async function saveCommonService(responseServiceId, obj){
+    let objToSend = {
+        id: responseServiceId,
+        files: obj.pictureFiles
+    }
+    await saveServicePictures(objToSend,
+        getHeadersObj(getAdminToken()));
+    objToSend = {
+        id: responseServiceId,
+        openingHours: obj.openingHours
+    }
+    await saveServiceOpeningHours(objToSend,
+        getHeadersObj(getAdminToken()));
+    objToSend = {
+        serviceId: responseServiceId,
+        ...obj.location
+    }
+    obj.location && await saveServiceLocation(objToSend,
+        getHeadersObj(getAdminToken()));
+    objToSend = {
+        serviceId: responseServiceId,
+        ...obj.contactDetails
+    }
+    obj.contactDetails.email && await saveServiceContactDetails(objToSend,
+        getHeadersObj(getAdminToken()));
+}
+
+export function getAdminToken() {
+    return localStorage.getItem('admin-token');
+}
+
+export function getUserToken() {
+    return localStorage.getItem('user-token');
+}
+
+export function getHeadersObj(token, contentType) {
+    let headers = {};
+
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    if (contentType) {
+        headers['Content-Type'] = contentType;
+    } else {
+        headers['Content-Type'] = 'application/json';
+    }
+
+    return headers;
 }
 
 const testDataStocks = [
@@ -388,553 +479,5 @@ const testDataComments = [
                    doloribus facere natus.`,
         user_ns: "Алексей Костюков",
         date: "04.11.2020"
-    },
-];
-const testDataServices = [
-    {
-        id: 1,
-        name: "Балденини Кафе / Baldenini Cafe",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci amet autem dolore eum fugiat, harum ipsa iure laudantium magni molestiae, nihil placeat quae quas quibusdam reiciendis repellendus, ut voluptate?",
-        type: "catering",
-        subtype: "cafe",
-        price: 12.50,
-        isBooked: false,
-        isActive: true,
-        contactDetails: {
-            id: 1,
-            name: "dsfasdf",
-            phoneNumber: 541231,
-            mobilePhone: 375331234567,
-            email: "qwerty@gmail.com",
-            address: "sdfsadf"
-        },
-        locations: [
-            {
-                id: 1,
-                name: "Минск",
-                address: "ул. Будславская 2",
-                latitude: 27.5618791,
-                longitude: 53.902334,
-                region: {
-                    id: 1,
-                    name: "Минская область"
-                }
-            }
-        ],
-        pictures: [
-            {
-                id: 1,
-                pictureUrl: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg",
-                isActive: true
-            }
-        ],
-        opening_hours: [
-            {
-                id: 1,
-                day_of_week: "Понедельник",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 2,
-                day_of_week: "Вторник",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 3,
-                day_of_week: "Среда",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 4,
-                day_of_week: "Четверг",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 5,
-                day_of_week: "Пятница",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 6,
-                day_of_week: "Суботта",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 7,
-                day_of_week: "Воскресенье",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-        ],
-        stocks: [],
-        rating: 9.5,
-        stars: null,
-        center_distance: 3,
-        category: null,
-        facilities: [
-            {
-                id: 1,
-                facilityName: "sfsdfsd",
-                extraPrice: 25
-            }
-        ]
-    },
-    {
-        id: 2,
-        name: "Балденини Кафе / Baldenini Cafe",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci amet autem dolore eum fugiat, harum ipsa iure laudantium magni molestiae, nihil placeat quae quas quibusdam reiciendis repellendus, ut voluptate?",
-        type: "catering",
-        subtype: "cafe",
-        price: 12.50,
-        isBooked: false,
-        isActive: true,
-        contactDetails: {
-            id: 1,
-            name: "dsfasdf",
-            phoneNumber: 541231,
-            mobilePhone: 375331234567,
-            email: "qwerty@gmail.com",
-            address: "sdfsadf"
-        },
-        locations: [
-            {
-                id: 1,
-                name: "Минск",
-                address: "ул. Будславская 2",
-                latitude: 27.5618791,
-                longitude: 54.902334,
-                region: {
-                    id: 1,
-                    name: "Минская область"
-                }
-            },
-            {
-                id: 2,
-                name: "Минск",
-                address: "ул. Авангардная 10",
-                latitude: 27.918791,
-                longitude: 54.802334,
-                region: {
-                    id: 1,
-                    name: "Минская область"
-                }
-            }
-        ],
-        pictures: [
-            {
-                id: 1,
-                pictureUrl: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg",
-                isActive: true
-            }
-        ],
-        opening_hours: [
-            {
-                id: 1,
-                day_of_week: "Понедельник",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 2,
-                day_of_week: "Вторник",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 3,
-                day_of_week: "Среда",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 4,
-                day_of_week: "Четверг",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 5,
-                day_of_week: "Пятница",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 6,
-                day_of_week: "Суботта",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 7,
-                day_of_week: "Воскресенье",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-        ],
-        stocks: [
-            {
-                id: 1,
-                discount: 10,
-                beginDate: "2012-02-02",
-                endDate: "2012-02-03",
-            }
-        ],
-        rating: 9.5,
-        stars: null,
-        center_distance: 3,
-        category: null,
-        facilities: [
-            {
-                id: 1,
-                facilityName: "sfsdfsd",
-                extraPrice: 25
-            }
-        ]
-    },
-    {
-        id: 3,
-        name: "Балденини Кафе / Baldenini Cafe",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci amet autem dolore eum fugiat, harum ipsa iure laudantium magni molestiae, nihil placeat quae quas quibusdam reiciendis repellendus, ut voluptate?",
-        type: "catering",
-        subtype: "cafe",
-        price: 12.50,
-        isBooked: false,
-        isActive: true,
-        contactDetails: {
-            id: 1,
-            name: "dsfasdf",
-            phoneNumber: 541231,
-            mobilePhone: 375331234567,
-            email: "qwerty@gmail.com",
-            address: "sdfsadf"
-        },
-        locations: [
-            {
-                id: 1,
-                name: "Минск",
-                address: "ул. Будславская 2",
-                latitude: 27.718791,
-                longitude: 53.902334,
-                region: {
-                    id: 1,
-                    name: "Минская область"
-                }
-            },
-            {
-                id: 2,
-                name: "Минск",
-                address: "ул. Авангардная 10",
-                latitude: 27.918791,
-                longitude: 54.802334,
-                region: {
-                    id: 1,
-                    name: "Минская область"
-                }
-            },
-            {
-                id: 3,
-                name: "Гродно",
-                address: "ул. Советская 15",
-                latitude: 23.8222673,
-                longitude: 53.6687634,
-                region: {
-                    id: 1,
-                    name: "Гродненская область"
-                }
-            }
-        ],
-        pictures: [
-            {
-                id: 1,
-                pictureUrl: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg",
-                isActive: true
-            }
-        ],
-        opening_hours: [
-            {
-                id: 1,
-                day_of_week: "Понедельник",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 2,
-                day_of_week: "Вторник",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 3,
-                day_of_week: "Среда",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 4,
-                day_of_week: "Четверг",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 5,
-                day_of_week: "Пятница",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 6,
-                day_of_week: "Суботта",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 7,
-                day_of_week: "Воскресенье",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-        ],
-        stocks: [
-            {
-                id: 1,
-                discount: 10,
-                beginDate: "2012-02-02",
-                endDate: "2012-02-03",
-            }
-        ],
-        rating: 9.5,
-        stars: 5,
-        center_distance: 3,
-        category: null,
-        facilities: [
-            {
-                id: 1,
-                facilityName: "sfsdfsd",
-                extraPrice: 25
-            }
-        ]
-    },
-    {
-        id: 4,
-        name: "Балденини Кафе / Baldenini Cafe",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci amet autem dolore eum fugiat, harum ipsa iure laudantium magni molestiae, nihil placeat quae quas quibusdam reiciendis repellendus, ut voluptate?",
-        type: "catering",
-        subtype: "cafe",
-        price: 12.50,
-        isBooked: false,
-        isActive: true,
-        contactDetails: {
-            id: 1,
-            name: "dsfasdf",
-            phoneNumber: 541231,
-            mobilePhone: 375331234567,
-            email: "qwerty@gmail.com",
-            address: "sdfsadf"
-        },
-        locations: [
-            {
-                id: 1,
-                name: "Минск",
-                address: "ул. Будславская 2",
-                latitude: 28.5618791,
-                longitude: 53.902334,
-                region: {
-                    id: 1,
-                    name: "Минская область"
-                }
-            }
-        ],
-        pictures: [
-            {
-                id: 1,
-                pictureUrl: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg",
-                isActive: true
-            }
-        ],
-        opening_hours: [
-            {
-                id: 1,
-                day_of_week: "Понедельник",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 2,
-                day_of_week: "Вторник",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 3,
-                day_of_week: "Среда",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 4,
-                day_of_week: "Четверг",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 5,
-                day_of_week: "Пятница",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 6,
-                day_of_week: "Суботта",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 7,
-                day_of_week: "Воскресенье",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-        ],
-        stocks: [],
-        rating: 9.5,
-        stars: null,
-        center_distance: 5,
-        category: null,
-        facilities: [
-            {
-                id: 1,
-                facilityName: "sfsdfsd",
-                extraPrice: 25
-            }
-        ]
-    },
-    {
-        id: 5,
-        name: "Балденини Кафе / Baldenini Cafe",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci amet autem dolore eum fugiat, harum ipsa iure laudantium magni molestiae, nihil placeat quae quas quibusdam reiciendis repellendus, ut voluptate?",
-        type: "catering",
-        subtype: "cafe",
-        price: 12.50,
-        isBooked: false,
-        isActive: true,
-        contactDetails: {
-            id: 1,
-            name: "dsfasdf",
-            phoneNumber: 541231,
-            mobilePhone: 375331234567,
-            email: "qwerty@gmail.com",
-            address: "sdfsadf"
-        },
-        locations: [
-            {
-                id: 1,
-                name: "Минск",
-                address: "ул. Будславская 2",
-                latitude: 27.5618791,
-                longitude: 52.902334,
-                region: {
-                    id: 1,
-                    name: "Минская область"
-                }
-            },
-            {
-                id: 2,
-                name: "Минск",
-                address: "ул. Авангардная 10",
-                latitude: 27.918791,
-                longitude: 54.802334,
-                region: {
-                    id: 1,
-                    name: "Минская область"
-                }
-            },
-            {
-                id: 3,
-                name: "Гродно",
-                address: "ул. Советская 15",
-                latitude: 23.8222673,
-                longitude: 53.6687634,
-                region: {
-                    id: 1,
-                    name: "Гродненская область"
-                }
-            }
-        ],
-        pictures: [
-            {
-                id: 1,
-                pictureUrl: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg",
-                isActive: true
-            }
-        ],
-        opening_hours: [
-            {
-                id: 1,
-                day_of_week: "Понедельник",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 2,
-                day_of_week: "Вторник",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 3,
-                day_of_week: "Среда",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 4,
-                day_of_week: "Четверг",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 5,
-                day_of_week: "Пятница",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 6,
-                day_of_week: "Суботта",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-            {
-                id: 7,
-                day_of_week: "Воскресенье",
-                open_time: "7:00",
-                close_time: "20:00",
-            },
-        ],
-        stocks: [
-            {
-                id: 1,
-                discount: 10,
-                beginDate: "2012-02-02",
-                endDate: "2012-02-03",
-            }
-        ],
-        rating: 9.5,
-        stars: null,
-        center_distance: 3,
-        category: null,
-        facilities: [
-            {
-                id: 1,
-                facilityName: "sfsdfsd",
-                extraPrice: 25
-            }
-        ]
     },
 ];

@@ -5,7 +5,7 @@ import {Dropdown} from "./Dropdown/Dropdown";
 export const Navigation = () => {
     const housing = {
         type: "Жилье",
-        type_icon: <i className="fas fa-house-user"></i>,
+        type_icon: <i className="fas fa-house-user"/>,
         subtypes: [
             {
                 subtype: "Отели",
@@ -23,7 +23,7 @@ export const Navigation = () => {
     };
     const transport = {
         type: "Транспорт",
-        type_icon: <i className="fas fa-car-alt"></i>,
+        type_icon: <i className="fas fa-car-alt"/>,
         subtypes: [
             {
                 subtype: "Авто",
@@ -37,7 +37,7 @@ export const Navigation = () => {
     };
     const tourism = {
         type: "Туризм",
-        type_icon: <i className="fas fa-route"></i>,
+        type_icon: <i className="fas fa-route"/>,
         subtypes: [
             {
                 subtype: "Автобусные экскурсионные туры по городам",
@@ -59,7 +59,7 @@ export const Navigation = () => {
     };
     const attractions = {
         type: "Достопримечательности",
-        type_icon: <i className="fas fa-icons"></i>,
+        type_icon: <i className="fas fa-icons"/>,
         subtypes: [
             {
                 subtype: "Культурные объекты",
@@ -76,24 +76,6 @@ export const Navigation = () => {
             {
                 subtype: "Развлекательные объекты",
                 to: "/services?type=attractions&subType=entertainment"
-            },
-        ]
-    };
-    const catering = {
-        type: "Общепит",
-        type_icon: <i className="fas fa-utensils"></i>,
-        subtypes: [
-            {
-                subtype: "Рестораны",
-                to: "/services?type=catering&subType=restaurant"
-            },
-            {
-                subtype: "Кафе",
-                to: "/services?type=catering&subType=cafe"
-            },
-            {
-                subtype: "Бары",
-                to: "/services?type=catering&subType=bar"
             },
         ]
     };
@@ -121,11 +103,6 @@ export const Navigation = () => {
                         type={attractions.type}
                         type_icon={attractions.type_icon}
                         subtypes={attractions.subtypes}
-                    />
-                    <Dropdown
-                        type={catering.type}
-                        type_icon={catering.type_icon}
-                        subtypes={catering.subtypes}
                     />
                 </ul>
             </div>

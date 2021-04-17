@@ -6,10 +6,22 @@ import {useDispatch} from "react-redux";
 import {addAttractionServiceAdmin} from "../../../../redux/actionCreators";
 import {GeneralFields} from "./GeneralFields";
 import {ButtonReset} from "../../../Forms/ButtonReset/ButtonReset";
+import Pictures from './Pictures';
+import OpeningHours from './OpeningHours';
+import ContactDetails from './ContactDetails';
+import Location from './Location';
 
 
 export const AttractionsService = ({type, subTypes, initialValues, validationSchema}) => {
     let dispatch = useDispatch();
+
+    initialValues = {
+        ...initialValues,
+        pictureFiles: [],
+        openingHours: [],
+        location: null,
+        contactDetails: {}
+    };
 
     return (
         <div className="service-adding__form-wrap">
@@ -17,22 +29,20 @@ export const AttractionsService = ({type, subTypes, initialValues, validationSch
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={(values, {setSubmitting, resetForm}) => {
-                    for (const key in values) {
-                        if (key !== "type" && key !== "isBooked" && key !== "isActive"
-                            && values[key] === initialValues[key]) {
-                            delete values[key];
-                        }
-                    }
                     dispatch(addAttractionServiceAdmin(values, setSubmitting, resetForm))
                 }}
             >
                 {
-                    ({isValid, isSubmitting}) => {
+                    ({isValid, isSubmitting, values, setFieldValue}) => {
                         return (
                             <Form className="service-adding__form">
                                 <div className="fields-wrap">
                                     <GeneralFields type={type} subTypes={subTypes}/>
                                 </div>
+                                <Pictures setFieldValue={setFieldValue} pictureFiles={values.pictureFiles}/>
+                                <OpeningHours setFieldValue={setFieldValue} openingHours={values.openingHours}/>
+                                <ContactDetails setFieldValue={setFieldValue} contactDetails={values.contactDetails}/>
+                                <Location setFieldValue={setFieldValue} location={values.location}/>
                                 <div className="btns">
                                     <ButtonReset
                                         value="Очистить форму"

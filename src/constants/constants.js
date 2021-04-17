@@ -62,14 +62,6 @@ const SERVICES = {
             "architecture": "Архитектурные объекты",
             "entertainment": "Развлекательные объекты",
         }
-    },
-    "catering": {
-        type: "Общепит",
-        subtypes: {
-            "restaurant": "Рестораны",
-            "cafe": "Кафе",
-            "bar": "Бары",
-        }
     }
 }
 
@@ -78,9 +70,49 @@ const API_URL = {
     STOCKS_GET: "/stocks/get",
     SERVICES_TYPE: "/services/type",
     SERVICES_SUBTYPE: "/services/subType",
+    SERVICES_GET_BY_ID: "/services/getById",
     ADD_TRANSPORT: "/transport/add",
     ADD_ATTRACTION: "/attractions/add",
     ADD_HOUSING: "/housing/add",
+    PICTURE_SAVE: '/picture/save',
+    LOCATION_SAVE: '/locations/save',
+    OPENING_HOURS_SAVE: '/openingHours/save',
+    CONTACT_DETAILS_SAVE: '/contactDetails/save',
+    COMMENT_ADD: '/comment/add',
+    BOOKMARKS_GET_FOR_CURRENT_USER: '/bookmark/getForCurrentUser',
+    BOOKMARKS_ADD: '/bookmark/add',
+    BOOKMARKS_DELETE: '/bookmark/delete',
 }
 
-export {POPUPS_FORMS, VALIDATION_MES, REGEX, SERVICES, API_URL};
+const DAYS = {
+    'MONDAY': {
+        valueRu: 'Понедельник',
+        number: 1
+    },
+    'TUESDAY': {
+        valueRu: 'Вторник',
+        number: 2
+    },
+    'WEDNESDAY': {
+        valueRu: 'Среда',
+        number: 3
+    },
+    'THURSDAY': {
+        valueRu: 'Четверг',
+        number: 4
+    },
+    'FRIDAY': {
+        valueRu: 'Пятница',
+        number: 5
+    },
+    'SATURDAY': {
+        valueRu: 'Суббота',
+        number: 6
+    },
+    'SUNDAY': {
+        valueRu: 'Воскресенье',
+        number: 0
+    },
+}
+
+export {POPUPS_FORMS, VALIDATION_MES, REGEX, SERVICES, API_URL, DAYS};

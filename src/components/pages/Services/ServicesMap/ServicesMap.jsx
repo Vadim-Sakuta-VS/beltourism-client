@@ -6,27 +6,26 @@ import {MapContainer, Marker, Popup, TileLayer, Tooltip, ZoomControl} from "reac
 import L from "leaflet";
 import {NameLink} from "../NameLink/NameLink";
 import {Location} from "../../../Locations/Location/Location";
-import {OpeningHours} from "../../../OpeningHours/OpeningHours";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 
 L.Icon.Default.imagePath="https://unpkg.com/leaflet@1.5.0/dist/images/";
 
 export const ServicesMap = ({services}) => {
+    console.log(services)
     let markersElements=[];
     services.forEach(s=>{
-        s.locations.forEach(l=>{
-            markersElements.push(
-                <Marker key={+`${s.id}${l.id}`} position={[l.longitude, l.latitude]}>
+        s.locations && s.locations.forEach(l=>{
+            l.latitude && l.longitude && l.name && l.address && markersElements.push(
+                <Marker key={l.id} position={[l.latitude, l.longitude]}>
                     <Popup position>
                         <NameLink
-                            to={`/services/${s.type}/${s.id}`}
-                            value={s.name}
+                            to={`/services/${s.service.type}/${s.service.id}`}
+                            value={s.service.name}
                             classStyle="name-link"
                         />
                         <Location city={l.name} address={l.address}/>
-                        <OpeningHours opening_hours={s.opening_hours} isShowingAll={false}/>
                     </Popup>
-                    <Tooltip>{s.name}</Tooltip>
+                    <Tooltip>{s.service.name}</Tooltip>
                 </Marker>
             )
         })
@@ -40,9 +39,10 @@ export const ServicesMap = ({services}) => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <ZoomControl position="topright"/>
-                <MarkerClusterGroup>
+                {markersElements}
+                {/*<MarkerClusterGroup>*/}
                     {markersElements}
-                </MarkerClusterGroup>
+                {/*</MarkerClusterGroup>*/}
             </MapContainer>
         </div>
     );

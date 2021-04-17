@@ -1,0 +1,13 @@
+.contact-details {
+  margin: 10px 0 15px 0;
+  color: #2c3e50;
+
+  &__title {
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    border-bottom: 2px solid #1dd2af;
+    margin-right: 10px;
+  }
+}

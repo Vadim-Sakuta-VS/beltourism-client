@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from 'react';
 import "./RegistrationForm.scss";
 import {Form, Formik} from "formik";
 import * as Yup from "yup";
@@ -10,33 +10,39 @@ import {Socials} from "../Socials/Socials";
 import {AuthSubInfo} from "../AuthSubInfo/AuthSubInfo";
 import {PasswordRequirements} from "./PasswordRequirements/PasswordRequirements";
 import {POPUPS_FORMS, REGEX, VALIDATION_MES} from "../../../constants/constants";
+import {showAlert} from '../../../redux/actionCreators';
+import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 
 export const RegistrationForm = ({activeForm, setPopupInfo}) => {
-    let [isPassReqVisible, setIsPassReqVisible] = useState(false);
-    let [timerLeaveId, setTimerLeaveId] = useState(null);
-    let [timerOverId, setTimerOverId] = useState(null);
+    let history = useHistory();
+    let dispatch = useDispatch();
 
-    const onMouseOverHandler = () => {
-        let timerId = setTimeout(() => {
-            setIsPassReqVisible(true);
-        }, 500);
-        if (timerLeaveId) {
-            clearTimeout(+timerLeaveId);
-            setTimerLeaveId(null)
+    const onSubmitHandler = async (values, setSubmitting) => {
+        try {
+            console.log('register')
+            setSubmitting(true);
+            let res = await fetch('http://localhost:8081/register', {
+                method: 'POST',
+                body: JSON.stringify({role: 'USER', ...values}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (res.ok) {
+                let data = await res.text();
+                if (data && history.location.pathname==='/admin-login') {
+                    history.replace('/home');
+                }
+                dispatch(showAlert(`Аккаунт ${values.email} создан. Пройдите авторизацию.`, 'good'));
+                setPopupInfo({activeForm: POPUPS_FORMS.LOGIN, fromFormClosed: activeForm});
+            } else {
+                dispatch(showAlert(`Проверьте введенные данные. Возможно данный email занят.`, 'error'));
+            }
+        } catch (e) {
+            console.log(e)
+            dispatch(showAlert(`Что-то пошло не так. Неизвестная ошибка(`, 'error'));
         }
-        setTimerOverId(timerId);
-    }
-
-    const onMouseLeaveHandler = () => {
-        console.log("leave")
-        let timerId = setTimeout(() => {
-            setIsPassReqVisible(false);
-        }, 500);
-        if (timerOverId) {
-            clearTimeout(+timerOverId);
-            setTimerOverId(null)
-        }
-        setTimerLeaveId(timerId);
     }
 
     let validationSchema = Yup.object().shape({
@@ -77,12 +83,7 @@ export const RegistrationForm = ({activeForm, setPopupInfo}) => {
                 validationSchema={validationSchema}
                 validateOnChange={false}
                 validateOnMount={true}
-                onSubmit={(values, {setSubmitting}) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 500);
-                }}
+                onSubmit={(values, {setSubmitting})=>onSubmitHandler(values, setSubmitting)}
             >
                 {
                     ({isSubmitting, isValid}) => {
@@ -95,17 +96,8 @@ export const RegistrationForm = ({activeForm, setPopupInfo}) => {
                                     <TextField name="email" type="email" placeholder="Email"/>
                                     <div className="password-field-wrap">
                                         <PasswordField name="password" type="password" placeholder="Пароль"/>
-                                        <i
-                                            className="far fa-question-circle pass-info"
-                                            onMouseOver={onMouseOverHandler}
-                                            onMouseLeave={onMouseLeaveHandler}
-                                        />
-                                        <PasswordRequirements
-                                            isVisible={isPassReqVisible}
-                                            isTimerLeave={!!timerLeaveId}
-                                            onMouseOver={onMouseOverHandler}
-                                            onMouseLeave={onMouseLeaveHandler}
-                                        />
+                                        <i className="far fa-question-circle pass-info"/>
+                                        <PasswordRequirements/>
                                     </div>
                                     <PasswordField name="confirmPassword" type="password"
                                                    placeholder="Потвердите пароль"/>

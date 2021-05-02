@@ -49,6 +49,21 @@ export function loadStocks(pageNumber, pageSize, sortBy) {
     });
 }
 
+export function loadServicesByType(pageNumber, pageSize, type) {
+    let paramsStr = createGetParamsString(
+        {
+            pageNumber,
+            pageSize,
+            type
+        }
+    );
+
+    return request({
+        url: API_URL.BASE + API_URL.SERVICES_TYPE + paramsStr,
+        method: 'GET'
+    });
+}
+
 export function loadServices(pageNumber, pageSize, paramsStrArg) {
     let paramsStr = createGetParamsString(
         {
@@ -164,9 +179,14 @@ export function getUserBookmarks(headers) {
     });
 }
 
-export function addUserBookmark(id, headers) {
+export function addUserBookmark(id, type, headers) {
+    const paramsStr = createGetParamsString(
+        {
+            type,
+        }
+    );
     return request({
-        url: API_URL.BASE + API_URL.BOOKMARKS_ADD + `/${id}`,
+        url: API_URL.BASE + API_URL.BOOKMARKS_ADD + `/${id}` + paramsStr,
         method: 'POST',
         headers
     });
@@ -185,4 +205,26 @@ export async function deleteUserBookmark(id, headers) {
     })
     const text = await res.text()
     console.log(text)
+}
+
+export function bookServiceUser(obj, headers) {
+    return request({
+        url: API_URL.BASE + API_URL.BOOKING_ADD,
+        method: 'POST',
+        body: JSON.stringify(obj),
+        headers
+    });
+}
+
+export async function deleteServiceAdmin(id, type, headers) {
+    const paramsStr = createGetParamsString(
+        {
+            id,
+            type
+        }
+    );
+    await fetch(API_URL.BASE + API_URL.SERVICE_DELETE + paramsStr, {
+        method: 'DELETE',
+        headers
+    })
 }

@@ -90,8 +90,8 @@ export const Comments = ({setPopupInfo, serviceId, comments}) => {
                 {sortedComments.map(c => (
                     <Comment
                         key={c.id}
-                        name="Имя"
-                        surname="Фамилия"
+                        name={c.name}
+                        surname={c.surname}
                         rating={c.rating}
                         commentDate={new Date(c.commentDate).toLocaleDateString()}
                         description={c.description}

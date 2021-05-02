@@ -33,8 +33,17 @@
                     let data = await res.text();
                     console.log(data);
                     if (data) {
+                        res = await fetch('http://localhost:8081/getCurrentUser/info', {
+                            headers:{
+                                'Authorization': `Bearer ${data}`
+                            }
+                        });
+                        const userInfo = await res.json();
+                        console.log(userInfo);
                         localStorage.setItem('user-token', data);
-                        localStorage.setItem('user-email', values.email);
+                        localStorage.setItem('user-email', userInfo.email);
+                        localStorage.setItem('user-name', userInfo.name);
+                        localStorage.setItem('user-surname', userInfo.surname);
                         context.setIsUserAuth(true);
                         if(history.location.pathname==='/admin-login'){
                             history.replace('/home');

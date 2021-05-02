@@ -3,7 +3,7 @@ import './ServiceDetails.scss';
 import {Redirect, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {MapContainer, Marker, TileLayer, Tooltip, ZoomControl} from 'react-leaflet';
-import {POPUPS_FORMS, SERVICES} from '../../../constants/constants';
+import {BOOKING_STATUS, POPUPS_FORMS, SERVICES, VALIDATION_MES} from '../../../constants/constants';
 import {HotelStars} from '../../HotelStars/HotelStars';
 import {selectServiceData} from '../../../redux/serviceDetails/selectors';
 import {PageWrapper} from '../PageWrapper';
@@ -15,6 +15,84 @@ import {Comments} from '../../Comments/Comments';
 import {AuthContext} from '../../../App';
 import {addBookmarksForUser, deleteBookmarksForUser, getBookmarksForUser} from '../../../redux/bookmarks/effects';
 import {selectBookmarksLoading, selectUserBookmarks} from '../../../redux/bookmarks/selectors';
+import {Form, Formik} from 'formik';
+import {ButtonSubmit} from '../../Forms/ButtonSubmit/ButtonSubmit';
+import * as Yup from 'yup';
+import {SelectField} from '../../Forms/Fields/SelectField';
+import {bookService} from '../../../redux/booking/effects';
+
+const BookForm = ({setPopupInfo, serviceId})=>{
+    const {isUserAuth} = useContext(AuthContext);
+    const dispatch = useDispatch();
+
+    const commentsInitialValues = {
+        paymentCurrency: '',
+        serviceId,
+        status: BOOKING_STATUS.IN_PROGRESS,
+    };
+
+    const paymentArr = {
+        BYN: 'Руб (BYN)',
+        USD: '$ (USD)',
+        EURO: '€ (EURO)',
+    };
+
+    let validationSchema = Yup.object().shape({
+        paymentCurrency: Yup.string()
+            .oneOf(Object.keys(paymentArr), VALIDATION_MES.REQUIRED)
+            .required(VALIDATION_MES.REQUIRED),
+    })
+
+
+    return (
+        <Formik
+            initialValues={commentsInitialValues}
+            validationSchema={validationSchema}
+            onSubmit={async (values, {setSubmitting, resetForm}) => {
+                if (!isUserAuth) {
+                    setPopupInfo({activeForm: POPUPS_FORMS.LOGIN, fromFormClosed: ''})
+                    setSubmitting(false);
+                    return;
+                }
+
+                console.log(values);
+
+                let result = await dispatch(bookService(values));
+
+                // if (result) {
+                    setSubmitting(false);
+                    resetForm();
+                // }
+            }}
+        >
+            {
+                ({isValid, isSubmitting}) => {
+
+                    return (
+                        <Form className="book__form">
+                            <SelectField
+                                name="paymentCurrency"
+                                options={[
+                                    {value: "Выберите валюту", text: "Выберите валюту"},
+                                    ...Object.keys(paymentArr).map(key => ({value: key, text: paymentArr[key]}))
+                                ]}
+                                style={{fontSize: "1rem"}}
+                                styleError={{position: 'static'}}
+                            />
+                            <ButtonSubmit
+                                value="Отправить"
+                                isSubmitting={isSubmitting}
+                                isValid={isValid}
+                                styleWrap={{padding: 0, marginTop: '3%'}}
+                                styleBtn={{height: '100%'}}
+                            />
+                        </Form>
+                    )
+                }
+            }
+        </Formik>
+    )
+}
 
 const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
     const [tabValue, setTabValue] = useState('Главное');
@@ -99,7 +177,7 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
         if (bookmark) {
             dispatch(deleteBookmarksForUser(bookmark.id));
         } else {
-            dispatch(addBookmarksForUser(+id));
+            dispatch(addBookmarksForUser(+id, type));
         }
     }
 
@@ -151,6 +229,12 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
                             className={`service-details-tab-btn ${tabValue.includes('Комментарии') ? 'active' : ''}`}
                         >
                             Комментарии {service.comments ? `(${service.comments.length})` : '(0)'}
+                        </button>
+                        <button
+                            className={`service-details-book-tab-btn
+                            ${tabValue.includes('Забронировать') ? 'active' : ''}`}
+                        >
+                            Забронировать
                         </button>
                     </div>
                     <div className="service-details-tabs-content">
@@ -227,6 +311,12 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
                         {tabValue.includes('Комментарии') && (
                             <div className="tab-comments-content">
                                 <Comments setPopupInfo={setPopupInfo} serviceId={+id} comments={service.comments}/>
+                            </div>
+                        )}
+                        {tabValue === 'Забронировать' && (
+                            <div className="tab-book-content">
+                                <h2 className="tab-book-content__name">Бронирование</h2>
+                                <BookForm serviceId={+id} setPopupInfo={setPopupInfo}/>
                             </div>
                         )}
                     </div>

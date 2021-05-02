@@ -3,6 +3,7 @@ import "./ServicesManipulation.scss";
 import {NavLink, Switch, Route, useRouteMatch, Redirect} from "react-router-dom";
 import {Page404} from "../../Page404/Page404";
 import {ServiceAdding} from "../ServiceAdding/ServiceAdding";
+import ServiceDeleting from '../ServiceDeleting/ServiceDeleting';
 
 export const ServicesManipulation = () => {
     let {url} = useRouteMatch();
@@ -37,6 +38,10 @@ export const ServicesManipulation = () => {
                         <Route
                             path={`/admin/services-manipulation/service-adding`}
                             render={(props) => <ServiceAdding {...props}/>}
+                        />
+                        <Route
+                            path={`/admin/services-manipulation/service-deleting`}
+                            render={(props) => <ServiceDeleting {...props}/>}
                         />
                         <Route path="/page404" render={(props) => <Page404 {...props}/>}/>
                         <Redirect to="/page404"/>

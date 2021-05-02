@@ -97,20 +97,16 @@ export const AboutService = () => {
                     voluptate! Adipisci amet atque cupiditate ex qui rem. (Какой-нибудь текст)
                 </p>
                 <div className="services">
-                    <div className="service-item">
+                    <div className="service-item-home">
                         <i className="far fa-check-circle"/>
-                        <p className="service-item__text">Поиск и просмотр услуг</p>
+                        <p className="service-item-home__text">Поиск и просмотр услуг</p>
                     </div>
-                    <div className="service-item">
+                    <div className="service-item-home">
                         <i className="far fa-check-circle"/>
-                        <p className="service-item__text">Бронирование услуг</p>
+                        <p className="service-item-home__text">Бронирование услуг</p>
                     </div>
                 </div>
                 <div>...</div>
-                {/*delete*/}
-                <p className="about-service__count-users">
-                    Более <span className="count">(Х)</span> зарегистрированных поьзователей.
-                </p>
             </div>
         </section>
     );

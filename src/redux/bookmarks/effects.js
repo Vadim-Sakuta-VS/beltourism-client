@@ -6,7 +6,7 @@ import {
 import {
     addUserBookmark,
     deleteUserBookmark,
-    getUserBookmarks,
+    getUserBookmarks, loadServiceDetails,
 } from '../../api/api';
 import {
     addBookmark,
@@ -23,7 +23,13 @@ export const getBookmarksForUser = () => {
             const bookmarks = selectUserBookmarks(getState());
             if (!bookmarks.length) {
                 const data = await getUserBookmarks(getHeadersObj(getUserToken()));
-                data.length && dispatch(setBookmarksUserData(data));
+                console.log(data)
+                const services = [];
+                for (const b of data) {
+                    const service = await loadServiceDetails(b.serviceId, b.serviceType);
+                    services.push(service);
+                }
+                services.length && dispatch(setBookmarksUserData(data, services));
             }
         } catch (e) {
             console.log(e);
@@ -33,12 +39,13 @@ export const getBookmarksForUser = () => {
     }
 }
 
-export const addBookmarksForUser = (id) => {
+export const addBookmarksForUser = (id, type) => {
     return async (dispatch) => {
         try {
-            const data = await addUserBookmark(id, getHeadersObj(getUserToken()));
+            const data = await addUserBookmark(id, type, getHeadersObj(getUserToken()));
             if (data.id) {
-                dispatch(addBookmark(data));
+                const service = await loadServiceDetails(data.serviceId, data.serviceType);
+                dispatch(addBookmark(data, service));
                 dispatch(showAlert('Добавлено в избранное', 'good'));
             }
         } catch (e) {

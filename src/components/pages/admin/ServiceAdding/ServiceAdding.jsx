@@ -20,7 +20,7 @@ export const ServiceAdding = () => {
         name: "",
         description: "",
         price: "",
-        isBooked: true,
+        isBooked: false,
         isActive: true,
     };
 

@@ -30,11 +30,15 @@ export const loadServiceData = (id, type) => {
 }
 
 export const sendComment = (obj) => {
-    return async (dispatch)=>{
+    return async (dispatch) => {
         try {
             const data = await sendUserComment(obj, getHeadersObj(getUserToken()));
-            if(data.id){
-                dispatch(addComment(data));
+            if (data.id) {
+                dispatch(addComment({
+                    name: localStorage.getItem('user-name'),
+                    surname: localStorage.getItem('user-surname'),
+                    ...data
+                }));
                 return true;
             }
             dispatch(showServiceAlertError());

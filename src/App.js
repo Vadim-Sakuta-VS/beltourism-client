@@ -1,18 +1,19 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect} from 'react';
 import './App.scss';
-import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
-import {Home} from "./components/pages/Home/Home";
-import {Popup} from "./components/Popup/Popup";
-import {Services} from "./components/pages/Services/Services";
-import {Page404} from "./components/pages/Page404/Page404";
-import {useSelector} from "react-redux";
-import {ServicesManipulation} from "./components/pages/admin/ServicesManipulation/ServicesManipulation";
-import {Alert} from "./components/Alert/Alert";
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import {Home} from './components/pages/Home/Home';
+import {Popup} from './components/Popup/Popup';
+import {Services} from './components/pages/Services/Services';
+import {Page404} from './components/pages/Page404/Page404';
+import {useSelector} from 'react-redux';
+import {ServicesManipulation} from './components/pages/admin/ServicesManipulation/ServicesManipulation';
+import {Alert} from './components/Alert/Alert';
 import AdminLogin from './components/pages/admin/AdminLogin/AdminLogin';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import UserPageWrapper from './components/pages/UserPageWrapper';
 import AdminPageWrapper from './components/pages/AdminPageWrapper';
 import ServiceDetails from './components/pages/ServiceDetails/ServiceDetails';
+import Bookmarks from './components/pages/Bookmarks/Bookmarks';
 
 export const AuthContext = React.createContext(null);
 
@@ -30,6 +31,14 @@ function App() {
             setIsUserAuth(true);
         }
     }, []);
+
+    const getStatusUserAuth = () => {
+        return !!localStorage.getItem('user-token');
+    }
+
+    const getStatusAdminAuth = () => {
+        return !!localStorage.getItem('admin-token');
+    }
 
     return (
         <Router>
@@ -72,7 +81,7 @@ function App() {
                                        setPopupInfo={setPopupInfo}
                                    >
                                        <Services isShowingPageLoader={isShowingPageLoader}
-                                             setPopupInfo={setPopupInfo}/>
+                                                 setPopupInfo={setPopupInfo}/>
                                    </UserPageWrapper>
                                }
                         />
@@ -84,10 +93,21 @@ function App() {
                                        setPopupInfo={setPopupInfo}
                                    >
                                        <ServiceDetails isShowingPageLoader={isShowingPageLoader}
-                                                 setPopupInfo={setPopupInfo}/>
+                                                       setPopupInfo={setPopupInfo}/>
                                    </UserPageWrapper>
                                }
                         />
+                        <PrivateRoute
+                            auth={getStatusUserAuth()}
+                            path="/bookmarks"
+                            pathToRedirect="/home"
+                            component={() => <UserPageWrapper
+                                isShowingPageLoader={isShowingPageLoader}
+                                setPopupInfo={setPopupInfo}
+                            >
+                                <Bookmarks isShowingPageLoader={isShowingPageLoader}
+                                           setPopupInfo={setPopupInfo}/>
+                            </UserPageWrapper>}/>
                         <Route path="/admin-login"
                                render={
                                    (props) => <AdminPageWrapper
@@ -97,13 +117,14 @@ function App() {
                                    </AdminPageWrapper>
                                }
                         />
-                        <PrivateRoute auth={isAdminAuth}
+                        <PrivateRoute auth={getStatusAdminAuth()    }
                                       path="/admin/services-manipulation"
-                                      component={ ()=>(
+                                      pathToRedirect="/admin-login"
+                                      component={() => (
                                           <AdminPageWrapper>
                                               <ServicesManipulation/>
                                           </AdminPageWrapper>)
-                                      } />
+                                      }/>
                         <Route path="/page404" render={(props) => <Page404 {...props}/>}/>
                         <Redirect to="/page404"/>
                     </Switch>

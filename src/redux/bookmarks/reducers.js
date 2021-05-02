@@ -8,6 +8,7 @@ import {
 
 const initialState = {
     data: [],
+    services: [],
     isLoading: false
 }
 
@@ -16,13 +17,32 @@ function bookmarksReducer(state = initialState, action) {
         case SET_BOOKMARKS_TYPE_LOADING:
             return {...state, isLoading: action.payload};
         case SET_BOOKMARKS_USER_DATA:
-            return {...state, data: [...state.data, ...action.payload]};
+            return {
+                ...state,
+                data: action.payload.bookmarks,
+                services: action.payload.services
+            };
         case ADD_BOOKMARK:
-            return {...state, data: [...state.data, action.payload]};
+            return {
+                ...state,
+                data: [...state.data, action.payload.bookmark],
+                services: [...state.services, action.payload.service],
+            };
         case DELETE_BOOKMARK:
-            return {...state, data: state.data.filter(b => b.id !== action.payload)};
+            let serviceId;
+            return {
+                ...state,
+                data: state.data.filter(b => {
+                    const result = b.id !== action.payload;
+                    if (!result) {
+                        serviceId = b.serviceId;
+                    }
+                    return result;
+                }),
+                services: state.services.filter(s => s.service.id !== serviceId),
+            };
         case CLEAR_BOOKMARKS:
-            return {...state, data: []};
+            return initialState;
         default:
             return state;
     }

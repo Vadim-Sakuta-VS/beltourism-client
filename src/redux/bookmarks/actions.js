@@ -9,15 +9,15 @@ export const setBookmarksTypeLoading = (isLoading) => ({
     payload: isLoading
 });
 
-export const setBookmarksUserData = (data) => ({
+export const setBookmarksUserData = (bookmarks, services) => ({
     type: SET_BOOKMARKS_USER_DATA,
-    payload: data
+    payload: {bookmarks, services}
 });
 
 
-export const addBookmark = (id) => ({
+export const addBookmark = (bookmark, service) => ({
     type: ADD_BOOKMARK,
-    payload: id
+    payload: {bookmark, service}
 });
 
 export const deleteBookmark = (id) => ({

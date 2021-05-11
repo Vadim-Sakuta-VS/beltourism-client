@@ -20,14 +20,17 @@ import {ButtonSubmit} from '../../Forms/ButtonSubmit/ButtonSubmit';
 import * as Yup from 'yup';
 import {SelectField} from '../../Forms/Fields/SelectField';
 import {bookService} from '../../../redux/booking/effects';
+import {selectUserBookingServicesData} from '../../../redux/booking/selectors';
 
-const BookForm = ({setPopupInfo, serviceId})=>{
+const BookForm = ({setPopupInfo, serviceId, serviceType})=>{
     const {isUserAuth} = useContext(AuthContext);
     const dispatch = useDispatch();
+
 
     const commentsInitialValues = {
         paymentCurrency: '',
         serviceId,
+        serviceType,
         status: BOOKING_STATUS.IN_PROGRESS,
     };
 
@@ -55,14 +58,12 @@ const BookForm = ({setPopupInfo, serviceId})=>{
                     return;
                 }
 
-                console.log(values);
-
                 let result = await dispatch(bookService(values));
 
-                // if (result) {
+                if (result) {
                     setSubmitting(false);
                     resetForm();
-                // }
+                }
             }}
         >
             {
@@ -101,9 +102,9 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
     const service = useSelector(selectServiceData);
     const bookmarks = useSelector(selectUserBookmarks);
     const isBookmarksLoading = useSelector(selectBookmarksLoading);
+    const bookings = useSelector(selectUserBookingServicesData);
+    const isBookedService = bookings.find(b => b.service.service.id === +id);
     const dispatch = useDispatch();
-
-    console.log(isUserAuth)
 
     useEffect(() => {
         if (Object.keys(SERVICES).includes(type) && !isNaN(id) && id > 0) {
@@ -118,8 +119,11 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
     }, [isUserAuth, dispatch]);
 
     if (!Object.keys(SERVICES).includes(type) || isNaN(id) || (!isNaN(id) && id < 1)) {
-        alert()
         return <Redirect to="/page404"/>
+    }
+
+    if (!isBookedService && service?.service?.isBooked && service?.service?.id === +id) {
+        return <Redirect to="/home"/>
     }
 
     if (!service || isBookmarksLoading) {
@@ -186,11 +190,11 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
             <div className="service-details">
                 <div className="container service-details__container">
                     <div className="vertical-buttons">
-                        <i className={`far fa-heart bookmark-icon
+                        {!isBookedService && <i className={`far fa-heart bookmark-icon
                         ${bookmark ? 'active' : ''}`}
-                           title="Избранное"
-                           onClick={onBookmarkClickHandler}
-                        />
+                            title="Избранное"
+                            onClick={onBookmarkClickHandler}
+                        />}
                         {contactDetails && (
                             <a href={`tel:${contactDetails.phoneNumber}`} className="service-phone-link">
                                 <i className="fas fa-phone"
@@ -230,12 +234,12 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
                         >
                             Комментарии {service.comments ? `(${service.comments.length})` : '(0)'}
                         </button>
-                        <button
+                        {!isBookedService && <button
                             className={`service-details-book-tab-btn
                             ${tabValue.includes('Забронировать') ? 'active' : ''}`}
                         >
                             Забронировать
-                        </button>
+                        </button>}
                     </div>
                     <div className="service-details-tabs-content">
                         {tabValue === 'Главное' && (
@@ -310,13 +314,18 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
                         )}
                         {tabValue.includes('Комментарии') && (
                             <div className="tab-comments-content">
-                                <Comments setPopupInfo={setPopupInfo} serviceId={+id} comments={service.comments}/>
+                                <Comments
+                                    setPopupInfo={setPopupInfo}
+                                    serviceId={+id}
+                                    serviceType={type}
+                                    comments={service.comments}
+                                />
                             </div>
                         )}
                         {tabValue === 'Забронировать' && (
                             <div className="tab-book-content">
                                 <h2 className="tab-book-content__name">Бронирование</h2>
-                                <BookForm serviceId={+id} setPopupInfo={setPopupInfo}/>
+                                <BookForm serviceId={+id} serviceType={type} setPopupInfo={setPopupInfo}/>
                             </div>
                         )}
                     </div>

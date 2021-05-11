@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './ServiceDeleting.scss';
 import {SERVICES, VALIDATION_MES} from '../../../../constants/constants';
 import {Form, Formik} from 'formik';
@@ -9,11 +9,16 @@ import * as Yup from 'yup';
 import {deleteService, loadDeletingServicesByType} from '../../../../redux/admin/effects';
 import {selectDeletingPageNumber, selectDeletingServices} from '../../../../redux/admin/selectors';
 import ServiceItem from '../../Services/ServiceItem/ServiceItem';
+import {resetServicesDeleting} from '../../../../redux/admin/actions';
 
 const ServiceDeleting = () => {
     const services = useSelector(selectDeletingServices);
     const page = useSelector(selectDeletingPageNumber);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(resetServicesDeleting());
+    }, []);
 
     const commentsInitialValues = {
         type: '',
@@ -26,15 +31,17 @@ const ServiceDeleting = () => {
     })
 
     let serviceItemsElements = services.map(s => (
-        s.service.isActive && !s.service.isBooked && (
-            <div key={s.service.id} className="service-item-wrapper">
-                <i
-                    className="far fa-trash-alt icon-delete-service"
-                    onClick={() => dispatch(deleteService(s.service.id, s.service.type))}
-                />
-                <ServiceItem service={s}/>
+        <div key={s.service.id} className="service-item-wrapper">
+            <div className="buttons">
+                <div>
+                    <i
+                        className="far fa-trash-alt icon-delete-service"
+                        onClick={() => dispatch(deleteService(s.service.id, s.service.type))}
+                    />
+                </div>
             </div>
-        )
+            <ServiceItem service={s}/>
+        </div>
     ));
 
     return (
@@ -53,7 +60,7 @@ const ServiceDeleting = () => {
                     }}
                 >
                     {
-                        ({isValid, isSubmitting, setFieldValue, values}) => {
+                        ({isValid, isSubmitting}) => {
 
                             return (
                                 <Form className="book__form">

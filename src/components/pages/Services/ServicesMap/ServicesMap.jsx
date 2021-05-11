@@ -11,7 +11,6 @@ import MarkerClusterGroup from "react-leaflet-markercluster";
 L.Icon.Default.imagePath="https://unpkg.com/leaflet@1.5.0/dist/images/";
 
 export const ServicesMap = ({services}) => {
-    console.log(services)
     let markersElements=[];
     services.forEach(s=>{
         s.locations && s.locations.forEach(l=>{

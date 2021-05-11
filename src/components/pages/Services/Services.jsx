@@ -39,8 +39,6 @@ export const Services = ({setPopupInfo, isShowingPageLoader}) => {
         return <Redirect to="/page404"/>;
     }
 
-    console.log('services component', services);
-
     let serviceItemsElements = services.map(s => (
         s.service.isActive && !s.service.isBooked && <ServiceItem key={s.service.id} service={s}/>
     ));

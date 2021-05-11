@@ -33,9 +33,6 @@ const DaysItem = ({dayNameRu, dayNameEn, onChangeHandler, getTime, checkExistDay
 const OpeningHours = ({setFieldValue, openingHours}) => {
 
     const onChangeHandler = (e) => {
-        console.log('changeTime')
-        console.log(e.target)
-        console.log(e.currentTarget)
 
         const setTimeProp = (day, prop, time) => {
             if (time == null) {
@@ -66,8 +63,6 @@ const OpeningHours = ({setFieldValue, openingHours}) => {
 
         const dayName = e.currentTarget.dataset.day;
         let changedOpeningHours;
-
-        console.log(openingHours.find(d => d.dayOfWeek === dayName))
 
         if (openingHours.find(d => d.dayOfWeek === dayName)) {
             changedOpeningHours = openingHours.map((day) => {
@@ -104,14 +99,10 @@ const OpeningHours = ({setFieldValue, openingHours}) => {
         setFieldValue('openingHours', changedOpeningHours);
     };
 
-    console.log(getTime('MONDAY', 'openTime'))
-
     return (
         <div className='opening-hours-block' style={{marginTop: '15px'}}>
             <header>
                 <h3 className='opening-hours__title'>Время работы:</h3>
-                {/*<i className="fas fa-long-arrow-alt-down"/>*/}
-                {/*<i className="fas fa-long-arrow-alt-up"/>*/}
             </header>
             <div className='days'>
                 <DaysItem

@@ -1,17 +1,19 @@
 import {
     getAdminToken,
     getHeadersObj,
-    showAlert,
+    showAlert, showServiceAlertError,
 } from '../actionCreators';
 import {
-    deleteServiceAdmin,
+    changeBookingStatus, deleteBooking,
+    deleteServiceAdmin, getAllUsersBooking, loadServiceDetails,
     loadServicesByType,
 } from '../../api/api';
 import {
-    deleteServiceCreator, resetServicesDeleting,
-    setServicesDeleting,
+    changeStatusUsersBooking,
+    deleteServiceCreator, deleteUsersBooking, resetServicesDeleting,
+    setServicesDeleting, setTypeLoadingBooking,
 } from './actions';
-import {selectDeletingPageNumber, selectDeletingServices} from './selectors';
+import {selectDeletingPageNumber, selectDeletingServices, selectUsersBookingServicesPage} from './selectors';
 
 export const loadDeletingServicesByType = (obj) => {
     return async (dispatch, getState) => {
@@ -37,6 +39,53 @@ export const deleteService = (id, type) => {
             dispatch(deleteServiceCreator(id));
             dispatch(showAlert('Услуга удалена', 'good'));
         } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+export const loadUsersBookServices = (actionCreator) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(setTypeLoadingBooking(true));
+            const page = selectUsersBookingServicesPage(getState());
+            let data = await getAllUsersBooking(page, 10, getHeadersObj(getAdminToken()));
+            if (data.length) {
+                for (const b of data) {
+                    b.service = await loadServiceDetails(b.serviceId, b.serviceType);
+                }
+                dispatch(actionCreator(data));
+            }
+        } catch (e) {
+            dispatch(showServiceAlertError());
+            console.log(e);
+        } finally {
+            dispatch(setTypeLoadingBooking(false));
+        }
+    }
+}
+
+export const changeStatusEffect = (bookingId, status)=>{
+    return async (dispatch) => {
+        try {
+            const res = await changeBookingStatus(bookingId, status, getHeadersObj(getAdminToken()));
+            if(res.id){
+                dispatch(changeStatusUsersBooking(bookingId, status));
+            }
+        }catch (e) {
+            dispatch(showServiceAlertError());
+            console.log(e);
+        }
+    }
+}
+
+export const deleteBookingEffect = (bookingId)=>{
+    return async (dispatch) => {
+        try {
+            await deleteBooking(bookingId, getHeadersObj(getAdminToken()));
+            dispatch(deleteUsersBooking(bookingId));
+        }catch (e) {
+            dispatch(showServiceAlertError());
             console.log(e);
         }
     }

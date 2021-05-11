@@ -14,7 +14,7 @@ import {
 import {
     addAttractionService,
     addHousingService,
-    addTransportService,
+    addTransportService, loadLastComments,
     loadServices,
     loadStocks, saveServiceContactDetails, saveServiceLocation, saveServiceOpeningHours,
     saveServicePictures
@@ -62,13 +62,17 @@ export function initHomePage() {
             let pageNumber = getState().home.pageNumberStocks;
             if (pageNumber === -1) {
                 let stocks = await loadStocks(++pageNumber, 6);
-                // console.log(stocks);
                 dispatch(setStocksHome(testDataStocks));
                 // dispatch(setStocksHome(stocks));
                 if (testDataStocks.length) {
                     dispatch(setPageNumberStocksHome(pageNumber));
                 }
             }
+
+            let lastComments = await loadLastComments();
+            lastComments = lastComments.map(async c=>{
+               // const service = await loadServiceDetails(c.serviceId, c.serviceType);
+            });
 
             dispatch(setCommentsHome(testDataComments));
 
@@ -282,7 +286,6 @@ export function addAttractionServiceAdmin(obj, setSubmitting, resetForm) {
 export function addHousingServiceAdmin(obj, setSubmitting, resetForm) {
     return async (dispatch) => {
         try {
-            console.log(obj);
             let objToSend = {
                 'category': obj.category,
                 'description': obj.description,

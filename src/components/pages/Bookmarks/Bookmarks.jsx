@@ -11,11 +11,8 @@ const Bookmarks = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('eff')
         dispatch(getBookmarksForUser());
     }, []);
-
-    console.log(services)
 
     let serviceItemsElements = services.map(s => (
         s.service.isActive && !s.service.isBooked && (
@@ -23,14 +20,17 @@ const Bookmarks = () => {
                 <ServiceItem service={s}/>
             </div>
         )
-    ));
+    )).filter(s => typeof s !== 'boolean');
 
     return (
         <div className="bookmarks">
             <div className="container bookmarks__container">
-                {
-                    !serviceItemsElements.length && !isLoading ? <h2>Нет закладок</h2> : serviceItemsElements
-                }
+                <div className="bookmarks__services" style={{maxWidth: 530, margin: '0 auto'}}>
+                    {
+                        (!serviceItemsElements.length && !isLoading) ?
+                            <h2 style={{textAlign: 'center'}}>Нет закладок</h2> : serviceItemsElements
+                    }
+                </div>
             </div>
         </div>
     );

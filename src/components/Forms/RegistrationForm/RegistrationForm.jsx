@@ -20,7 +20,6 @@ export const RegistrationForm = ({activeForm, setPopupInfo}) => {
 
     const onSubmitHandler = async (values, setSubmitting) => {
         try {
-            console.log('register')
             setSubmitting(true);
             let res = await fetch('http://localhost:8081/register', {
                 method: 'POST',

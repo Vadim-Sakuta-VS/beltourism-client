@@ -8,7 +8,6 @@ const request = async (options) => {
     }
 
     let res = await fetch(options.url, options);
-    console.log(res)
 
     if (!res.ok) {
         throw new Error('Some Error');
@@ -80,7 +79,6 @@ export function loadServices(pageNumber, pageSize, paramsStrArg) {
 }
 
 export function addTransportService(obj, headers) {
-    console.log(headers)
     return request({
         url: API_URL.BASE + API_URL.ADD_TRANSPORT,
         method: 'POST',
@@ -203,8 +201,7 @@ export async function deleteUserBookmark(id, headers) {
         method: 'DELETE',
         headers
     })
-    const text = await res.text()
-    console.log(text)
+    return await res.text()
 }
 
 export function bookServiceUser(obj, headers) {
@@ -227,4 +224,55 @@ export async function deleteServiceAdmin(id, type, headers) {
         method: 'DELETE',
         headers
     })
+}
+
+export async function loadLastComments() {
+    const paramsStr = createGetParamsString(
+        {sortBy: 'commentDate'}
+    );
+    return request({
+        url: API_URL.BASE + API_URL.COMMENT_GET_ALL + paramsStr,
+        method: 'GET',
+    });
+}
+
+export async function getCurrentUserBooking(page, pageSize, headers) {
+    const paramsStr = createGetParamsString(
+        {pageNumber: page, pageSize}
+    );
+    const res = await fetch(API_URL.BASE + API_URL.BOOKING_GET_FOR_CURRENT_USER + paramsStr, {
+        headers
+    })
+    return await res.json();
+}
+
+export async function getAllUsersBooking(page, pageSize, headers) {
+    const paramsStr = createGetParamsString(
+        {pageNumber: page, pageSize}
+    );
+    const res = await fetch(API_URL.BASE + API_URL.BOOKING_GET_ALL + paramsStr, {
+        headers
+    })
+    return await res.json();
+}
+
+export async function changeBookingStatus(bookingId, status, headers) {
+    const paramsStr = createGetParamsString(
+        {bookingId, status}
+    );
+    const res = await fetch(API_URL.BASE + API_URL.BOOKING_CHANGE_STATUS + paramsStr, {
+        headers
+    })
+    return await res.json();
+}
+
+export async function deleteBooking(id, headers) {
+    const paramsStr = createGetParamsString(
+        {id}
+    );
+    const res = await fetch(API_URL.BASE + API_URL.BOOKING_DELETE + paramsStr, {
+        method: 'DELETE',
+        headers
+    })
+    return await res.text();
 }

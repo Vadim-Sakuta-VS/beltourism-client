@@ -14,6 +14,7 @@ import UserPageWrapper from './components/pages/UserPageWrapper';
 import AdminPageWrapper from './components/pages/AdminPageWrapper';
 import ServiceDetails from './components/pages/ServiceDetails/ServiceDetails';
 import Bookmarks from './components/pages/Bookmarks/Bookmarks';
+import Booking from './components/pages/Booking/Booking';
 
 export const AuthContext = React.createContext(null);
 
@@ -108,6 +109,17 @@ function App() {
                                 <Bookmarks isShowingPageLoader={isShowingPageLoader}
                                            setPopupInfo={setPopupInfo}/>
                             </UserPageWrapper>}/>
+                        <PrivateRoute
+                            auth={getStatusUserAuth()}
+                            path="/user-booking"
+                            pathToRedirect="/home"
+                            component={() => <UserPageWrapper
+                                isShowingPageLoader={isShowingPageLoader}
+                                setPopupInfo={setPopupInfo}
+                            >
+                                <Booking isShowingPageLoader={isShowingPageLoader}
+                                           setPopupInfo={setPopupInfo}/>
+                            </UserPageWrapper>}/>
                         <Route path="/admin-login"
                                render={
                                    (props) => <AdminPageWrapper
@@ -117,7 +129,7 @@ function App() {
                                    </AdminPageWrapper>
                                }
                         />
-                        <PrivateRoute auth={getStatusAdminAuth()    }
+                        <PrivateRoute auth={getStatusAdminAuth()}
                                       path="/admin/services-manipulation"
                                       pathToRedirect="/admin-login"
                                       component={() => (

@@ -31,7 +31,6 @@
                 });
                 if (res.ok) {
                     let data = await res.text();
-                    console.log(data);
                     if (data) {
                         res = await fetch('http://localhost:8081/getCurrentUser/info', {
                             headers:{
@@ -39,7 +38,6 @@
                             }
                         });
                         const userInfo = await res.json();
-                        console.log(userInfo);
                         localStorage.setItem('user-token', data);
                         localStorage.setItem('user-email', userInfo.email);
                         localStorage.setItem('user-name', userInfo.name);

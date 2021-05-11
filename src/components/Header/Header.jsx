@@ -67,6 +67,9 @@ export const Header = ({setPopupInfo}) => {
                             <ul className={`user-info__menu ${isVisibleUserMenu 
                                 ? 'user-info__menu--visible': ''}`}>
                                 <li className="user-info__menu-item">
+                                    <NavLink className="user-info__menu-link" to='/user-booking'>Бронирование</NavLink>
+                                </li>
+                                <li className="user-info__menu-item">
                                     <NavLink className="user-info__menu-link" to='/bookmarks'>Закладки</NavLink>
                                 </li>
                                 <li className="user-info__menu-item">

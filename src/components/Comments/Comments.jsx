@@ -12,7 +12,7 @@ import {ButtonSubmit} from '../Forms/ButtonSubmit/ButtonSubmit';
 import {Comment} from './Comment';
 import {Rating} from '../Rating/Rating';
 
-export const Comments = ({setPopupInfo, serviceId, comments}) => {
+export const Comments = ({setPopupInfo, serviceId, serviceType, comments}) => {
     const {isUserAuth} = useContext(AuthContext);
     const dispatch = useDispatch();
 
@@ -20,6 +20,7 @@ export const Comments = ({setPopupInfo, serviceId, comments}) => {
         description: '',
         rating: 0,
         serviceId,
+        serviceType,
         commentDate: null,
         userId: 0
     };

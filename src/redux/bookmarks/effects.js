@@ -23,7 +23,6 @@ export const getBookmarksForUser = () => {
             const bookmarks = selectUserBookmarks(getState());
             if (!bookmarks.length) {
                 const data = await getUserBookmarks(getHeadersObj(getUserToken()));
-                console.log(data)
                 const services = [];
                 for (const b of data) {
                     const service = await loadServiceDetails(b.serviceId, b.serviceType);

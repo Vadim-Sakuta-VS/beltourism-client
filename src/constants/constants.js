@@ -79,11 +79,15 @@ const API_URL = {
     OPENING_HOURS_SAVE: '/openingHours/save',
     CONTACT_DETAILS_SAVE: '/contactDetails/save',
     COMMENT_ADD: '/comment/add',
-    COMMENT_GET_ALL: '/comment/add',
+    COMMENT_GET_ALL: '/comment/getAll',
     BOOKMARKS_GET_FOR_CURRENT_USER: '/bookmark/getForCurrentUser',
     BOOKMARKS_ADD: '/bookmark/add',
     BOOKMARKS_DELETE: '/bookmark/delete',
     BOOKING_ADD: '/booking/add',
+    BOOKING_GET_ALL: '/booking/getAll',
+    BOOKING_GET_FOR_CURRENT_USER: '/booking/getBookingsForCurrentUser',
+    BOOKING_CHANGE_STATUS: '/booking/changeStatus',
+    BOOKING_DELETE: '/booking/delete',
     SERVICE_DELETE: '/services/delete',
 }
 

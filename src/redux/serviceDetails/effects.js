@@ -13,7 +13,6 @@ export const loadServiceData = (id, type) => {
         try {
             dispatch(showPageLoader());
             const data = await loadServiceDetails(id, type);
-            console.log(data);
             if (!data.service.id) {
                 window.location.replace('/page404');
                 return;
@@ -21,7 +20,6 @@ export const loadServiceData = (id, type) => {
             dispatch(setServiceData(data));
 
         } catch (e) {
-            // window.location.replace('/page404');
             console.log(e);
         } finally {
             dispatch(hidePageLoader());

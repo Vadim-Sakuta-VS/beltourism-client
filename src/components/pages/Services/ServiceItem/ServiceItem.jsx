@@ -8,7 +8,7 @@ import {NameLink} from '../NameLink/NameLink';
 import {Location} from '../../../Locations/Location/Location';
 import {useSpring, animated} from 'react-spring';
 
-const ServiceItem = ({service, styleWrap}) => {
+const ServiceItem = ({service, styleWrap, fromUserType}) => {
     const props = useSpring({
         from: {opacity: 0},
         to: {opacity: 1}
@@ -34,7 +34,8 @@ const ServiceItem = ({service, styleWrap}) => {
                     {imgUrl && <img src={imgUrl} alt=""/>}
                     <div className="data-main">
                         <div className="props-1">
-                            <NameLink to={`/services/${type}/${id}`} value={name} classStyle="name-link"/>
+                            <NameLink to={{pathname: `/services/${type}/${id}`, state: {from: fromUserType}}}
+                                      value={name} classStyle="name-link"/>
                             {stars && <HotelStars stars={stars}/>}
                         </div>
                         <div className="props-2">

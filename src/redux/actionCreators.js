@@ -14,7 +14,7 @@ import {
 import {
     addAttractionService,
     addHousingService,
-    addTransportService, loadLastComments,
+    addTransportService, loadAllComments, loadServiceDetails,
     loadServices,
     loadStocks, saveServiceContactDetails, saveServiceLocation, saveServiceOpeningHours,
     saveServicePictures
@@ -69,12 +69,15 @@ export function initHomePage() {
                 }
             }
 
-            let lastComments = await loadLastComments();
-            lastComments = lastComments.map(async c=>{
-               // const service = await loadServiceDetails(c.serviceId, c.serviceType);
-            });
+            let lastComments = await loadAllComments();
+            for (const lastComment of lastComments) {
+                const service = await loadServiceDetails(lastComment.serviceId, lastComment.serviceType);
+                lastComment.service = service.service;
+                lastComment.location = service.locations && service.locations[0];
+            }
 
-            dispatch(setCommentsHome(testDataComments));
+
+            dispatch(setCommentsHome(lastComments));
 
             setTimeout(() => dispatch(hidePageLoader()), 1000);
 

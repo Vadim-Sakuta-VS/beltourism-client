@@ -7,6 +7,7 @@ import {loadUserBookServices} from '../../../redux/booking/effects';
 import {setUserBookingServices, setUserBookingServicesMore, updateBookings} from '../../../redux/booking/actions';
 import {selectUserBookingServicesData, selectUserBookingServicesLoading} from '../../../redux/booking/selectors';
 import {BOOKING_STATUS} from '../../../constants/constants';
+import {TabRow} from '../ServiceDetails/TabRow';
 
 const Booking = () => {
     const bookingServices = useSelector(selectUserBookingServicesData);
@@ -30,6 +31,12 @@ const Booking = () => {
     return (
         <div className="booking-user">
             <div className="container">
+                <div className="profile">
+                    <h2 className='profile__title'>Профиль пользователя</h2>
+                    <TabRow title='Имя' value={localStorage.getItem('user-name')}/>
+                    <TabRow title='Фамилия' value={localStorage.getItem('user-surname')}/>
+                    <TabRow title='Email' value={localStorage.getItem('user-email')}/>
+                </div>
                 <h2 className="booking-user__title">Забронированные услуги</h2>
                 <div className="booking-content">
                     <div className="booking-user__services" style={{maxWidth: 530, margin: '0 auto'}}>

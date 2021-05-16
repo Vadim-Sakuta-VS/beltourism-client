@@ -6,13 +6,13 @@
 
 .service-item-wrapper {
   position: relative;
+}
 
-  .icon-delete-service {
-    cursor: pointer;
-    transition: .2s;
+.icon-delete {
+  cursor: pointer;
+  transition: .2s;
 
-    &:hover {
-      color: red;
-    }
+  &:hover {
+    color: red;
   }
 }

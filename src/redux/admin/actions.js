@@ -7,6 +7,11 @@ export const SET_TYPE_LOADING_BOOKING = 'ADMIN/SET_TYPE_LOADING_BOOKING';
 export const UPDATE_BOOKINGS = 'ADMIN/UPDATE_BOOKINGS';
 export const CHANGE_STATUS_USERS_BOOKING = 'ADMIN/CHANGE_STATUS_USERS_BOOKING';
 export const DELETE_USERS_BOOKING = 'ADMIN/DELETE_USERS_BOOKING';
+export const UPDATE_COMMENTS = 'ADMIN/UPDATE_COMMENTS';
+export const SET_TYPE_LOADING_COMMENTS = 'ADMIN/SET_TYPE_LOADING_COMMENTS';
+export const SET_USERS_COMMENTS_SERVICES = 'ADMIN/SET_USERS_COMMENTS_SERVICES';
+export const SET_USERS_COMMENTS_SERVICES_MORE = 'ADMIN/SET_USERS_COMMENTS_SERVICES_MORE';
+export const DELETE_USERS_COMMENTS = 'ADMIN/DELETE_USERS_COMMENTS';
 
 export const setServicesDeleting = (services) => ({
     type: SET_SERVICES_DELETING,
@@ -48,5 +53,29 @@ export const changeStatusUsersBooking = (id, status) => ({
 
 export const deleteUsersBooking = (id) => ({
     type: DELETE_USERS_BOOKING,
+    payload: id
+});
+
+export const setUsersCommentsServices = (comments) => ({
+    type: SET_USERS_COMMENTS_SERVICES,
+    payload: comments
+});
+
+export const setUsersCommentsServicesMore = (comments) => ({
+    type: SET_USERS_COMMENTS_SERVICES_MORE,
+    payload: comments
+});
+
+export const setTypeLoadingComments = (isLoading) => ({
+    type: SET_TYPE_LOADING_COMMENTS,
+    payload: isLoading
+});
+
+export const updateComments = () => ({
+    type: UPDATE_COMMENTS,
+});
+
+export const deleteUserCommentCreator = (id) => ({
+    type: DELETE_USERS_COMMENTS,
     payload: id
 });

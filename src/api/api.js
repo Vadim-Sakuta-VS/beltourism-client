@@ -226,9 +226,9 @@ export async function deleteServiceAdmin(id, type, headers) {
     })
 }
 
-export async function loadLastComments() {
+export async function loadAllComments(pathOptions = {}) {
     const paramsStr = createGetParamsString(
-        {sortBy: 'commentDate'}
+        {sortBy: 'id', ...pathOptions}
     );
     return request({
         url: API_URL.BASE + API_URL.COMMENT_GET_ALL + paramsStr,
@@ -271,6 +271,17 @@ export async function deleteBooking(id, headers) {
         {id}
     );
     const res = await fetch(API_URL.BASE + API_URL.BOOKING_DELETE + paramsStr, {
+        method: 'DELETE',
+        headers
+    })
+    return await res.text();
+}
+
+export async function deleteComment(id, headers) {
+    const paramsStr = createGetParamsString(
+        {id}
+    );
+    const res = await fetch(API_URL.BASE + API_URL.COMMENT_DELETE + paramsStr, {
         method: 'DELETE',
         headers
     })

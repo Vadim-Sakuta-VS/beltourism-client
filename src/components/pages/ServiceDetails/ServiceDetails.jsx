@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import './ServiceDetails.scss';
-import {Redirect, useParams} from 'react-router-dom';
+import {Redirect, useLocation, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {MapContainer, Marker, TileLayer, Tooltip, ZoomControl} from 'react-leaflet';
 import {BOOKING_STATUS, POPUPS_FORMS, SERVICES, VALIDATION_MES} from '../../../constants/constants';
@@ -98,6 +98,7 @@ const BookForm = ({setPopupInfo, serviceId, serviceType})=>{
 const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
     const [tabValue, setTabValue] = useState('Главное');
     const {type, id} = useParams();
+    const {state} = useLocation();
     const {isUserAuth} = useContext(AuthContext);
     const service = useSelector(selectServiceData);
     const bookmarks = useSelector(selectUserBookmarks);
@@ -122,7 +123,7 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
         return <Redirect to="/page404"/>
     }
 
-    if (!isBookedService && service?.service?.isBooked && service?.service?.id === +id) {
+    if (!isBookedService && service?.service?.isBooked && service?.service?.id === +id && state.from !== 'admin') {
         return <Redirect to="/home"/>
     }
 
@@ -190,7 +191,7 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
             <div className="service-details">
                 <div className="container service-details__container">
                     <div className="vertical-buttons">
-                        {!isBookedService && <i className={`far fa-heart bookmark-icon
+                        {!isBookedService && !service.service.isBooked && <i className={`far fa-heart bookmark-icon
                         ${bookmark ? 'active' : ''}`}
                             title="Избранное"
                             onClick={onBookmarkClickHandler}

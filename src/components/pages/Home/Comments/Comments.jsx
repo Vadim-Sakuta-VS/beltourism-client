@@ -37,7 +37,7 @@ export const Comments = ({comments}) => {
         nextArrow: <SampleNextArrow/>
     }
 
-    const commentsElements = comments.map(c => <Comment key={c.id} {...c}/>);
+    const commentsElements = comments.map(c => <Comment key={c.id} comment={c}/>);
 
     return (
         <section className="user-comments">

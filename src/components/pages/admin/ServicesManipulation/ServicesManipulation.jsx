@@ -5,6 +5,7 @@ import {Page404} from "../../Page404/Page404";
 import {ServiceAdding} from "../ServiceAdding/ServiceAdding";
 import ServiceDeleting from '../ServiceDeleting/ServiceDeleting';
 import Booking from '../Booking/Booking';
+import Comments from '../Comments/Comments';
 
 export const ServicesManipulation = () => {
     let {url} = useRouteMatch();
@@ -34,6 +35,11 @@ export const ServicesManipulation = () => {
                                 Бронирование
                             </NavLink>
                         </div>
+                        <div className="menu-link__wrap">
+                            <NavLink className="menu-link" to={`${url}/comments`}>
+                                Комментарии
+                            </NavLink>
+                        </div>
                     </nav>
                 </div>
                 <div className="services-manipulation__col-2">
@@ -52,6 +58,10 @@ export const ServicesManipulation = () => {
                         <Route
                             path={`/admin/services-manipulation/booking`}
                             render={(props) => <Booking {...props}/>}
+                        />
+                        <Route
+                            path={`/admin/services-manipulation/comments`}
+                            render={(props) => <Comments {...props}/>}
                         />
                         <Route path="/page404" render={(props) => <Page404 {...props}/>}/>
                         <Redirect to="/page404"/>

@@ -4,16 +4,21 @@ import {
     showAlert, showServiceAlertError,
 } from '../actionCreators';
 import {
-    changeBookingStatus, deleteBooking,
-    deleteServiceAdmin, getAllUsersBooking, loadServiceDetails,
+    changeBookingStatus, deleteBooking, deleteComment,
+    deleteServiceAdmin, getAllUsersBooking, loadAllComments, loadServiceDetails,
     loadServicesByType,
 } from '../../api/api';
 import {
     changeStatusUsersBooking,
-    deleteServiceCreator, deleteUsersBooking, resetServicesDeleting,
-    setServicesDeleting, setTypeLoadingBooking,
+    deleteServiceCreator, deleteUserCommentCreator, deleteUsersBooking, resetServicesDeleting,
+    setServicesDeleting, setTypeLoadingBooking, setTypeLoadingComments,
 } from './actions';
-import {selectDeletingPageNumber, selectDeletingServices, selectUsersBookingServicesPage} from './selectors';
+import {
+    selectDeletingPageNumber,
+    selectDeletingServices,
+    selectUsersBookingServicesPage,
+    selectUsersCommentsServicesPage
+} from './selectors';
 
 export const loadDeletingServicesByType = (obj) => {
     return async (dispatch, getState) => {
@@ -84,6 +89,36 @@ export const deleteBookingEffect = (bookingId)=>{
         try {
             await deleteBooking(bookingId, getHeadersObj(getAdminToken()));
             dispatch(deleteUsersBooking(bookingId));
+        }catch (e) {
+            dispatch(showServiceAlertError());
+            console.log(e);
+        }
+    }
+}
+
+export const loadUsersCommentsServices = (actionCreator) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(setTypeLoadingComments(true));
+            const page = selectUsersCommentsServicesPage(getState());
+            let data = await loadAllComments({pageNumber: page, pageSize: 20});
+            if (data.length) {
+                dispatch(actionCreator(data));
+            }
+        } catch (e) {
+            dispatch(showServiceAlertError());
+            console.log(e);
+        } finally {
+            dispatch(setTypeLoadingComments(false));
+        }
+    }
+}
+
+export const deleteCommentEffect = (commentId)=>{
+    return async (dispatch) => {
+        try {
+            await deleteComment(commentId, getHeadersObj(getAdminToken()));
+            dispatch(deleteUserCommentCreator(commentId));
         }catch (e) {
             dispatch(showServiceAlertError());
             console.log(e);

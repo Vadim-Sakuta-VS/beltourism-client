@@ -1,0 +1,14 @@
+.comment-wrapper {
+  position: relative;
+}
+
+.manipulation-item-wrapper {
+  .link-to-service {
+    color: #2c3e50;
+    white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

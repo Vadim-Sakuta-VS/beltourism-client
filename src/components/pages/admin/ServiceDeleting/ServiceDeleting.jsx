@@ -31,16 +31,16 @@ const ServiceDeleting = () => {
     })
 
     let serviceItemsElements = services.map(s => (
-        <div key={s.service.id} className="service-item-wrapper">
+        <div key={s.service.id} className="service-item-wrapper manipulation-item-wrapper">
             <div className="buttons">
                 <div>
                     <i
-                        className="far fa-trash-alt icon-delete-service"
+                        className="far fa-trash-alt icon-delete"
                         onClick={() => dispatch(deleteService(s.service.id, s.service.type))}
                     />
                 </div>
             </div>
-            <ServiceItem service={s}/>
+            <ServiceItem service={s} fromUserType='admin'/>
         </div>
     ));
 

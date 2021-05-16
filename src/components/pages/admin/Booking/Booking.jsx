@@ -24,7 +24,7 @@ const Booking = () => {
     let serviceItemsElements = bookingServices.map(b => (
         b.service && b.service.service.isActive &&
         (
-            <div key={b.service.id} className="service-item-wrapper">
+            <div key={b.service.id} className="service-item-wrapper manipulation-item-wrapper">
                 {b.status === BOOKING_STATUS.CANCELED && <div className="canceled-wrap">Отменено</div>}
                 <div className="buttons">
                     {b.status === BOOKING_STATUS.CANCELED && <button
@@ -41,12 +41,12 @@ const Booking = () => {
                     </button>}
                     <div>
                         <i
-                            className="far fa-trash-alt icon-delete-service"
+                            className="far fa-trash-alt icon-delete"
                             onClick={() => dispatch(deleteBookingEffect(b.id))}
                         />
                     </div>
                 </div>
-                <ServiceItem service={b.service}/>
+                <ServiceItem service={b.service} fromUserType='admin'/>
             </div>
         )
     ));

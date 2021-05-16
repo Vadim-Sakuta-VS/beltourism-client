@@ -80,6 +80,7 @@ const API_URL = {
     CONTACT_DETAILS_SAVE: '/contactDetails/save',
     COMMENT_ADD: '/comment/add',
     COMMENT_GET_ALL: '/comment/getAll',
+    COMMENT_DELETE: '/comment/delete',
     BOOKMARKS_GET_FOR_CURRENT_USER: '/bookmark/getForCurrentUser',
     BOOKMARKS_ADD: '/bookmark/add',
     BOOKMARKS_DELETE: '/bookmark/delete',

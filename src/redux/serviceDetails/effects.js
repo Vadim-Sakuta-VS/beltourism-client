@@ -21,6 +21,7 @@ export const loadServiceData = (id, type) => {
 
         } catch (e) {
             console.log(e);
+            dispatch(showServiceAlertError());
         } finally {
             dispatch(hidePageLoader());
         }

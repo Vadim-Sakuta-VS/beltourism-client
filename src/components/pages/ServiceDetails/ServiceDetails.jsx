@@ -123,7 +123,8 @@ const ServiceDetails = ({setPopupInfo, isShowingPageLoader}) => {
         return <Redirect to="/page404"/>
     }
 
-    if (!isBookedService && service?.service?.isBooked && service?.service?.id === +id && state.from !== 'admin') {
+    if (!isBookedService && service?.service?.isBooked
+        && service?.service?.id === +id && state?.from !== 'admin') {
         return <Redirect to="/home"/>
     }
 

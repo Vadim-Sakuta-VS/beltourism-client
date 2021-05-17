@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {selectBookmarksLoading, selectUserBookmarksServices} from '../../../redux/bookmarks/selectors';
 import {getBookmarksForUser} from '../../../redux/bookmarks/effects';
 import ServiceItem from '../Services/ServiceItem/ServiceItem';
+import PaginationButton from '../../PaginationButton/PaginationButton';
 
 const Bookmarks = () => {
     const services = useSelector(selectUserBookmarksServices);
@@ -25,12 +26,19 @@ const Bookmarks = () => {
     return (
         <div className="bookmarks">
             <div className="container bookmarks__container">
-                <div className="bookmarks__services" style={{maxWidth: 530, margin: '0 auto'}}>
-                    {
-                        (!serviceItemsElements.length && !isLoading) ?
-                            <h2 style={{textAlign: 'center'}}>Нет закладок</h2> : serviceItemsElements
-                    }
-                </div>
+                <h2 className="bookmarks__title">Закладки пользователя</h2>
+                {isLoading ? (
+                    <PaginationButton
+                        isShowingPaginationLoader={isLoading}
+                        classStyle="btn__load-more-s"/>
+                ) : (
+                    <div className="bookmarks__services" style={{maxWidth: 530, margin: '0 auto'}}>
+                        {
+                            (!serviceItemsElements.length && !isLoading) ?
+                                <h2 style={{textAlign: 'center'}}>Нет закладок</h2> : serviceItemsElements
+                        }
+                    </div>
+                )}
             </div>
         </div>
     );

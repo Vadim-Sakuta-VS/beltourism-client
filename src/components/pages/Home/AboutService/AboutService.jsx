@@ -1,7 +1,7 @@
-import React from "react";
-import "./AboutService.scss";
-import Slider from "react-slick";
-import {Slide} from "./Slide/Slide";
+import React from 'react';
+import './AboutService.scss';
+import Slider from 'react-slick';
+import {Slide} from './Slide/Slide';
 
 export const AboutService = () => {
 
@@ -10,15 +10,15 @@ export const AboutService = () => {
 
         return (indexes) => {
             if (isCanAnimated) {
-                let slider = document.getElementsByClassName("about-service-slider")[0];
-                let slickSlides = slider.getElementsByClassName("slick-slide");
+                let slider = document.getElementsByClassName('about-service-slider')[0];
+                let slickSlides = slider.getElementsByClassName('slick-slide');
                 let flag = false;
 
                 for (const s of slickSlides) {
                     if (indexes.includes(+s.dataset.index)) {
-                        let text = s.getElementsByClassName("slide-text")[0];
-                        if (text && !text.classList.contains("transform")) {
-                            text.classList.add("transform");
+                        let text = s.getElementsByClassName('slide-text')[0];
+                        if (text && !text.classList.contains('transform')) {
+                            text.classList.add('transform');
                             flag = true;
                         }
                     }
@@ -42,11 +42,11 @@ export const AboutService = () => {
         autoplay: true,
         autoplaySpeed: 5000,
         speed: 2000,
-        className: "about-service-slider",
+        className: 'about-service-slider',
         swipe: false,
         onInit: () => {
-            let slider = document.getElementsByClassName("about-service-slider")[0];
-            let slickCloned = slider.getElementsByClassName("slick-cloned");
+            let slider = document.getElementsByClassName('about-service-slider')[0];
+            let slickCloned = slider.getElementsByClassName('slick-cloned');
             let indexes;
             if (slickCloned) {
                 indexes = [0, +slickCloned[1].dataset.index];
@@ -87,14 +87,12 @@ export const AboutService = () => {
             <div className="about-service__text-content">
                 <h3 className="about-service__title">О нашем сервисе</h3>
                 <p className="about-service__text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore dolores est fugit
-                    similique vero? Commodi cupiditate eligendi eveniet minus pariatur reiciendis sint
-                    voluptate! Adipisci amet atque cupiditate ex qui rem. (Какой-нибудь текст)
-                </p>
-                <p className="about-service__text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore dolores est fugit
-                    similique vero? Commodi cupiditate eligendi eveniet minus pariatur reiciendis sint
-                    voluptate! Adipisci amet atque cupiditate ex qui rem. (Какой-нибудь текст)
+                    BELBOOKING - сервис бронирования услуг предназначен для пользователей, которые планируют путешествия
+                    по Беларуси. Данный ресурс предоставляет возможность проанализировать достопримечательности и
+                    интересные места в точке назначения, выбрать отель, помогает забронировать туры и транспорт, узнать
+                    мнение остальных пользователей и оставить свое, поделиться фотографиями достопримечательностей. Наш
+                    сервис , BELLBOKING, позволит забронировать тур, отель, транспорт, место в различных заведениях
+                    (кафе, рестораны) и т.д.
                 </p>
                 <div className="services">
                     <div className="service-item-home">
@@ -105,8 +103,15 @@ export const AboutService = () => {
                         <i className="far fa-check-circle"/>
                         <p className="service-item-home__text">Бронирование услуг</p>
                     </div>
+                    <div className="service-item-home">
+                        <i className="far fa-check-circle"/>
+                        <p className="service-item-home__text">Добавление услуг в избранное</p>
+                    </div>
+                    <div className="service-item-home">
+                        <i className="far fa-check-circle"/>
+                        <p className="service-item-home__text">Отзывы</p>
+                    </div>
                 </div>
-                <div>...</div>
             </div>
         </section>
     );

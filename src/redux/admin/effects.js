@@ -33,6 +33,7 @@ export const loadDeletingServicesByType = (obj) => {
             dispatch(setServicesDeleting(loadedServices))
         } catch (e) {
             console.log(e);
+            dispatch(showServiceAlertError());
         }
     }
 }
@@ -45,6 +46,7 @@ export const deleteService = (id, type) => {
             dispatch(showAlert('Услуга удалена', 'good'));
         } catch (e) {
             console.log(e);
+            dispatch(showServiceAlertError());
         }
     }
 }

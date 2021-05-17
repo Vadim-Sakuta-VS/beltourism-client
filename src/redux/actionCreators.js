@@ -76,13 +76,11 @@ export function initHomePage() {
                 lastComment.location = service.locations && service.locations[0];
             }
 
-
             dispatch(setCommentsHome(lastComments));
-
             setTimeout(() => dispatch(hidePageLoader()), 1000);
 
         } catch (err) {
-            dispatch(setCommentsHome(testDataComments));
+            console.log(err)
             setTimeout(() => dispatch(hidePageLoader()), 1000);
         }
     }
@@ -418,72 +416,5 @@ const testDataStocks = [
         location: "Гродно",
         mark: 8.5,
         price: 12
-    },
-];
-const testDataComments = [
-    {
-        id: 1,
-        service_name: "Аренда Volkswagen Tiguan (Слайд 1)",
-        company_name: "Пилот-авто",
-        location: "Минск",
-        mark: 9,
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
-                   architecto consequatur cupiditate deleniti dicta ducimus esse excepturi harum nam
-                   necessitatibus odit, officia perferendis porro quaerat quis! Accusantium
-                   doloribus facere natus.`,
-        user_ns: "Алексей Костюков",
-        date: "04.11.2020"
-    },
-    {
-        id: 2,
-        service_name: "Аренда Volkswagen Tiguan (Слайд 2)",
-        company_name: "Пилот-авто",
-        location: "Минск",
-        mark: 9,
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
-                   architecto consequatur cupiditate deleniti dicta ducimus esse excepturi harum nam
-                   necessitatibus odit, officia perferendis porro quaerat quis! Accusantium
-                   doloribus facere natus.`,
-        user_ns: "Алексей Костюков",
-        date: "04.11.2020"
-    },
-    {
-        id: 3,
-        service_name: "Аренда Volkswagen Tiguan (Слайд 3)",
-        company_name: "Пилот-авто",
-        location: "Минск",
-        mark: 10,
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
-                   architecto consequatur cupiditate deleniti dicta ducimus esse excepturi harum nam
-                   necessitatibus odit, officia perferendis porro quaerat quis! Accusantium
-                   doloribus facere natus.`,
-        user_ns: "Алексей Костюков",
-        date: "04.11.2020"
-    },
-    {
-        id: 4,
-        service_name: "Аренда Volkswagen Tiguan (Слайд 4)",
-        company_name: "Пилот-авто",
-        location: "Минск",
-        mark: 8,
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
-                   architecto consequatur cupiditate deleniti dicta ducimus esse excepturi harum nam
-                   necessitatibus odit, officia perferendis porro quaerat quis! Accusantium
-                   doloribus facere natus.`,
-        user_ns: "Алексей Костюков",
-        date: "04.11.2020"
-    },
-    {
-        id: 5,
-        service_name: "Аренда Volkswagen Tiguan (Слайд 5)",
-        company_name: "Пилот-авто",
-        location: "Минск",
-        mark: 9,
-        text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
-                   architecto consequatur cupiditate deleniti dicta ducimus esse excepturi harum nam
-                   necessitatibus odit, officia perferendis porro quaerat quis! Accusantium
-                   doloribus facere natus.`,
-        user_ns: "Алексей Костюков",
-        date: "04.11.2020"
     },
 ];

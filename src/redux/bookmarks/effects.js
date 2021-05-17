@@ -1,7 +1,7 @@
 import {
     getHeadersObj,
     getUserToken,
-    showAlert,
+    showAlert, showServiceAlertError,
 } from '../actionCreators';
 import {
     addUserBookmark,
@@ -32,6 +32,7 @@ export const getBookmarksForUser = () => {
             }
         } catch (e) {
             console.log(e);
+            dispatch(showServiceAlertError());
         } finally {
             dispatch(setBookmarksTypeLoading(false));
         }
@@ -49,6 +50,7 @@ export const addBookmarksForUser = (id, type) => {
             }
         } catch (e) {
             console.log(e);
+            dispatch(showServiceAlertError());
         }
     }
 }
@@ -61,6 +63,7 @@ export const deleteBookmarksForUser = (id) => {
             dispatch(showAlert('Удалено из избранного', 'good'));
         } catch (e) {
             console.log(e);
+            dispatch(showServiceAlertError());
         }
     }
 }

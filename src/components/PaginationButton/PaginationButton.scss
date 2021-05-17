@@ -28,6 +28,7 @@
 
   .btn__load-more-s.disabled, .btn__load-more-b.disabled{
     background-color: #808080;
+    cursor: default;
   }
 
   .btn__load-more-s.disabled:hover, .btn__load-more-b.disabled:hover  {

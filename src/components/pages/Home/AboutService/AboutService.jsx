@@ -64,23 +64,23 @@ export const AboutService = () => {
                 <Slider {...settings}>
                     <Slide
                         bg_url="https://eurasia.expert/upload/resize_cache/iblock/e7d/850_15000_1/e7d0b6d22648132c527047f7c506b794.jpg"
-                        text="Какой-нибудь текст."
+                        text="Незабываемые места."
                     />
                     <Slide
                         bg_url="https://photoclub.by/images/main76/763942_main.jpg"
-                        text="Какой-нибудь текст."
+                        text="Множество различных развлекательных объектов."
                     />
                     <Slide
                         bg_url="https://vostokintur.ru/upload/iblock/f72/f72dc7ad9017fd8c45142e0189f65c03.jpg"
-                        text="Какой-нибудь текст."
+                        text="Архитектурное наследие."
                     />
                     <Slide
                         bg_url="https://cf.bstatic.com/images/hotel/max1280x900/184/184920337.jpg"
-                        text="Какой-нибудь текст."
+                        text="Дорогие и доступные отели."
                     />
                     <Slide
                         bg_url="https://i.pinimg.com/originals/cf/32/3a/cf323a8760ba4d97cd312b46e0820b35.jpg"
-                        text="Какой-нибудь текст."
+                        text="Живописные места."
                     />
                 </Slider>
             </div>

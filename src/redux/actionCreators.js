@@ -61,9 +61,8 @@ export function initHomePage() {
 
             let pageNumber = getState().home.pageNumberStocks;
             if (pageNumber === -1) {
-                let stocks = await loadStocks(++pageNumber, 6);
+                await loadStocks(++pageNumber, 6);
                 dispatch(setStocksHome(testDataStocks));
-                // dispatch(setStocksHome(stocks));
                 if (testDataStocks.length) {
                     dispatch(setPageNumberStocksHome(pageNumber));
                 }
@@ -366,7 +365,7 @@ const testDataStocks = [
     {
         id: 1,
         service_name: "Аренда Volkswagen Tiguan",
-        img_url: "https://dh.img.tam.by/320x218s/offers/0e/0/8fc9e3e25a7b85b390b45ae9b29c57e0-2.jpg",
+        img_url: "images/tiguan.jpg",
         discount: 30,
         location: "Минск",
         mark: 9.1,
@@ -375,7 +374,7 @@ const testDataStocks = [
     {
         id: 2,
         service_name: "Гродненский государственный музей истории религии",
-        img_url: "https://ekskursii.by/images/obj3/102139/c18he5_3_true.jpg",
+        img_url: "images/museum.jpg",
         discount: 20,
         location: "Гродно",
         mark: 8.5,
@@ -384,7 +383,7 @@ const testDataStocks = [
     {
         id: 3,
         service_name: "Аренда Volkswagen Tiguan",
-        img_url: "https://dh.img.tam.by/320x218s/offers/0e/0/8fc9e3e25a7b85b390b45ae9b29c57e0-2.jpg",
+        img_url: "images/tiguan.jpg",
         discount: 30,
         location: "Минск",
         mark: 9.1,
@@ -393,7 +392,7 @@ const testDataStocks = [
     {
         id: 4,
         service_name: "Гродненский государственный музей истории религии",
-        img_url: "https://ekskursii.by/images/obj3/102139/c18he5_3_true.jpg",
+        img_url: "images/museum.jpg",
         discount: 20,
         location: "Гродно",
         mark: 8.5,
@@ -402,7 +401,7 @@ const testDataStocks = [
     {
         id: 5,
         service_name: "Аренда Volkswagen Tiguan",
-        img_url: "https://dh.img.tam.by/320x218s/offers/0e/0/8fc9e3e25a7b85b390b45ae9b29c57e0-2.jpg",
+        img_url: "images/tiguan.jpg",
         discount: 30,
         location: "Минск",
         mark: 9.1,
@@ -411,7 +410,7 @@ const testDataStocks = [
     {
         id: 6,
         service_name: "Гродненский государственный музей истории религии",
-        img_url: "https://ekskursii.by/images/obj3/102139/c18he5_3_true.jpg",
+        img_url: "images/museum.jpg",
         discount: 20,
         location: "Гродно",
         mark: 8.5,

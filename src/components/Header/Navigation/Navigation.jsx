@@ -35,28 +35,6 @@ export const Navigation = () => {
             },
         ]
     };
-    const tourism = {
-        type: "Туризм",
-        type_icon: <i className="fas fa-route"/>,
-        subtypes: [
-            {
-                subtype: "Автобусные экскурсионные туры по городам",
-                to: "/services?type=tourism&subType=bus-excursions"
-            },
-            {
-                subtype: "Индивидуальные туры по Беларуси",
-                to: "/services?type=tourism&subType=individual-excursions"
-            },
-            {
-                subtype: "Велоэкскурсии по городам Беларуси",
-                to: "/services?type=tourism&subType=bike-excursions"
-            },
-            {
-                subtype: "Агротуризм",
-                to: "/services?type=tourism&subType=agrotourism"
-            },
-        ]
-    };
     const attractions = {
         type: "Достопримечательности",
         type_icon: <i className="fas fa-icons"/>,
@@ -93,11 +71,6 @@ export const Navigation = () => {
                         type={transport.type}
                         type_icon={transport.type_icon}
                         subtypes={transport.subtypes}
-                    />
-                    <Dropdown
-                        type={tourism.type}
-                        type_icon={tourism.type_icon}
-                        subtypes={tourism.subtypes}
                     />
                     <Dropdown
                         type={attractions.type}

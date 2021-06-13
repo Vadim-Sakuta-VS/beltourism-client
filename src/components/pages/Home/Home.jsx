@@ -3,18 +3,14 @@ import "./Home.scss";
 import {Stocks} from "../../Stocks/Stocks";
 import {AboutService} from "./AboutService/AboutService";
 import {Comments} from "./Comments/Comments";
-import PaginationButton from "../../PaginationButton/PaginationButton";
-import {initHomePage, paginateStocksHome} from "../../../redux/actionCreators";
+import {initHomePage} from "../../../redux/actionCreators";
 import {useDispatch, useSelector} from "react-redux";
 import {PageWrapper} from "../PageWrapper";
 
-export const Home = ({setPopupInfo, isShowingPageLoader, ...props})=>{
+export const Home = ({setPopupInfo, isShowingPageLoader})=>{
     const dispatch = useDispatch();
     const stocks = useSelector(state => state.home.stocks);
     const comments = useSelector(state => state.home.comments);
-    const isShowingPaginationLoader = useSelector(state =>
-        state.home.isShowingPaginationStocksLoader);
-    // useScrollToManager(isShowingPaginationLoader);
 
     useEffect(()=>{
         dispatch(initHomePage());
@@ -30,14 +26,7 @@ export const Home = ({setPopupInfo, isShowingPageLoader, ...props})=>{
                             <h2 className="popular-stocks__title">Популярные акции</h2>
                             {
                                 stocks.length
-                                    ? <>
-                                        <Stocks stocks={stocks}/>
-                                        <PaginationButton
-                                            callback={() => dispatch(paginateStocksHome())}
-                                            classStyle="btn__load-more-s"
-                                            isShowingPaginationLoader={isShowingPaginationLoader}
-                                        />
-                                      </>
+                                    ? <Stocks stocks={stocks}/>
                                     : <div className="result-null">На данный момент нет акций</div>
                             }
                         </div>
